@@ -1,0 +1,39 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 3fr 1fr;
+  background-color: antiquewhite;
+}
+header div {
+  display: flex;
+  align-items: center;
+}
+header div.logo img {
+  height: 100px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 100px);
+}
+main form {
+  padding: 10px;
+  border: 1px solid black;
+  display: flex;
+  align-items: flex-start;
+}
+main form div input {
+  display: block;
+  padding: 5px;
+  margin: 5px;
+}
+
+/*# sourceMappingURL=style.css.map */
