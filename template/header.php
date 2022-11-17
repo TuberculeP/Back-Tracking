@@ -31,10 +31,10 @@
 
         <div class="search">
             <div>
-                <a href="/search.php?filter=popular">
+                <a href="/search.php?discover=popular">
                     Les plus populaires
                 </a>
-                <a href="/search.php?filter=recent">
+                <a href="/search.php?discover=recent">
                     Les plus récents
                 </a>
                 <form action="/search.php">
