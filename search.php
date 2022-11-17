@@ -10,7 +10,7 @@ if($_GET){
 		$ch_session = curl_init();
 		curl_setopt($ch_session, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch_session, CURLOPT_URL, $url_name);
-		$result_url = json_decode(curl_exec($ch_session), true);
+		$result_url = json_decode(curl_exec($ch_session), true)['results'];
 	}elseif(isset($_GET['discover'])){
         $req_type = $_GET['discover']==='popular'
             ?'trending/movie/week?'
@@ -45,22 +45,24 @@ if($_GET){
 					foreach ($result_url as $result){
 						?>
 
-                        <section class="result">
-                            <img src="https://image.tmdb.org/t/p/w500<?=$result['poster_path']?>" alt="poster_for <?=$result['id']?>">
-                            <div>
-                                <h2>
-									<?php
-									if($result['original_language'] === 'fr'){
-										echo $result['original_title'];
-									}else{
-										echo $result['title'];
-									}
-									echo ' ('.explode('-',$result['release_date'])[0].')'
-									?>
-                                </h2>
-                                <p><?=$result['overview']?></p>
-                            </div>
-                        </section>
+                        <a href="./movie.php?id=<?=$result['id']?>" class="result">
+                            <section class="result">
+                                <img src="https://image.tmdb.org/t/p/w500<?=$result['poster_path']?>" alt="poster_for <?=$result['id']?>">
+                                <div>
+                                    <h2>
+										<?php
+										if($result['original_language'] === 'fr'){
+											echo $result['original_title'];
+										}else{
+											echo $result['title'];
+										}
+										echo ' ('.explode('-',$result['release_date'])[0].')'
+										?>
+                                    </h2>
+                                    <p><?=$result['overview']?></p>
+                                </div>
+                            </section>
+                        </a>
 				
                         
                         <?php

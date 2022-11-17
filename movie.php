@@ -1,22 +1,7 @@
-<!doctype html>
-<html lang="fr">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport"
-		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<style>
-		main {
-			display: flex;
-			width: 100%;
-		}
-		main div{
-			max-width: 50%;
-		}
-	</style>
-	<title>MOVIE - DEV</title>
-</head>
-<body>
+<?php
+$page_title = 'IIMovies';
+require_once './template/header.php';
+?>
 	<main>
 		<div>
 			<?php
@@ -53,6 +38,7 @@
 			</pre>
 		</div>
 	</main>
-</body>
-</html>
+<?php
+require_once './template/footer.php';
+?>
 

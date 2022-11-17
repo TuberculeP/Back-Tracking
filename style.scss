@@ -61,8 +61,6 @@ div.search{
 section.result{
   display: flex;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-  width: 550px;
-  margin: 24px auto;
   border-radius: 0 24px 24px 0;
   img{
     height: 250px;
@@ -76,5 +74,18 @@ section.result{
       bottom: 0;
       text-align: justify;
     }
+  }
+}
+
+a.result{
+  display: block;
+  width: 550px;
+  margin: 24px auto;
+  text-decoration: none;
+  color: inherit;
+  appearance: none;
+  transition: transform 0.2s;
+  &:hover{
+    transform: scale(1.01);
   }
 }
