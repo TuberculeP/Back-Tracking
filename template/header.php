@@ -31,15 +31,9 @@
 
         <div class="search">
             <div>
-                <a href="/search.php?discover=popular">
-                    Les plus populaires
-                </a>
-                <a href="/search.php?discover=recent">
-                    Les plus récents
-                </a>
                 <form action="/search.php">
                     <div class="form">
-                        <input type="text" name="query" id="search" placeholder="Rechercher un film...">
+                        <input type="text" name="query" id="search" placeholder="Rechercher un film..." autocomplete="off">
                         <button type="submit">Go</button>
                     </div>
                     <div class="search-modal hidden">
@@ -48,6 +42,12 @@
                         <ul></ul>
                     </div>
                 </form>
+                <a href="/search.php?discover=trending" class="button">
+                    Tendances
+                </a>
+                <a href="/search.php?discover=new" class="button">
+                    Nouveauté
+                </a>
             </div>
         </div>
     

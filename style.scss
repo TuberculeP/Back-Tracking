@@ -34,16 +34,25 @@ div.search{
     display: flex;
     align-items: center;
     gap: 16px;
-   >a{
-      display: block;
-      padding: 10px 20px;
-      box-shadow: inset 0 5px 5px rgba(0, 0, 0, 0.24);
-      border-radius: 24px;
     }
 
     form{
       position: relative;
+      input{
+        padding: 10px 20px;
+        border: none;
+        border-radius: 24px;
+        box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.24);
 
+      }
+      button{
+        padding: 10px;
+        border: none;
+        background-color: #0ea10e;
+        color: white;
+        border-radius: 24px;
+        cursor: pointer;
+      }
       div.search-modal{
         position: absolute;
         background-color: white;
@@ -56,6 +65,27 @@ div.search{
       }
     }
   }
+
+a.button {
+  display: block;
+  width: fit-content;
+  padding: 10px 20px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.24);
+  border-radius: 24px;
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+
+  &:hover {
+    transform: translateY(2px);
+  }
+}
+
+div.sort{
+  display: flex;
+  justify-content: center;
+  gap: 32px;
 }
 
 section.result{
@@ -87,5 +117,31 @@ a.result{
   transition: transform 0.2s;
   &:hover{
     transform: scale(1.01);
+  }
+}
+
+h1{
+  text-align: center;
+}
+
+div.movie{
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  border-radius: 0 24px 24px 0;
+
+  img{
+    height: 500px;
+  }
+  section{
+    padding: 24px;
+    >*{
+      margin-bottom: 24px;
+    }
+    p{
+      max-width: 600px;
+      text-align: justify;
+    }
   }
 }
