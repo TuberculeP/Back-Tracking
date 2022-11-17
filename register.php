@@ -43,15 +43,17 @@ if($_POST && isset($_POST['register'])){
     <form method="post">
         <h2>Register</h2>
         <div>
-            <input type="text" name="pseudo" placeholder="pseudo"><br>
-            <input type="email" name="email" placeholder="email"><br>
-            <input type="password" name="password" placeholder="password"><br>
-            <input type="password" name="password-confirm" placeholder="confirm password">
-        </div>
-        <div>
-            <input type="text" name="first_name" placeholder="first name"><br>
-            <input type="text" name="last_name" placeholder="last name"><br>
-            <input type="number" name="age" min="0" placeholder="age"><br>
+            <div>
+                <input type="text" name="pseudo" placeholder="pseudo">
+                <input type="email" name="email" placeholder="email">
+                <input type="password" name="password" placeholder="password">
+                <input type="password" name="password-confirm" placeholder="confirm password">
+            </div>
+            <div>
+                <input type="text" name="first_name" placeholder="first name">
+                <input type="text" name="last_name" placeholder="last name">
+                <input type="number" name="age" min="0" placeholder="age">
+            </div>
         </div>
 		<?php if($_GET && isset($_GET['error'])){
 			echo '<p class="error">Erreur : ';

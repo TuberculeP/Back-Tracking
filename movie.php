@@ -20,8 +20,7 @@
 	<main>
 		<div>
 			<?php
-			
-			
+
 			$url_name = 'https://api.themoviedb.org/3/movie/'.$_GET['id'].'?api_key=d3151e4e15cfce47f5840fd3c57988df';
 			
 			

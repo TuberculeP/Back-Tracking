@@ -2,38 +2,77 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 header {
-  display: grid;
-  grid-template-columns: 1fr 1fr 3fr 1fr;
-  background-color: antiquewhite;
+  background-color: white;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.24);
+  display: flex;
+  gap: 36px;
+  position: relative;
+  justify-content: left;
+  align-items: center;
+  padding: 0 24px;
+  margin-bottom: 24px;
 }
-header div {
+header .profile {
+  position: absolute;
+  right: 24px;
+}
+header .logo {
   display: flex;
   align-items: center;
 }
-header div.logo img {
-  height: 100px;
+header .logo img {
+  height: 80px;
+  margin: 10px 0;
 }
 
-main {
+div.search > div {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+div.search > div > a {
+  display: block;
+  padding: 10px 20px;
+  box-shadow: inset 0 5px 5px rgba(0, 0, 0, 0.24);
+  border-radius: 24px;
+}
+div.search > div form {
+  position: relative;
+}
+div.search > div form div.search-modal {
+  position: absolute;
+  background-color: white;
+}
+div.search > div form div.search-modal.hidden {
+  display: none;
+}
+div.search > div form div.search-modal ul {
+  list-style: none;
+}
+
+section.result {
+  display: flex;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  width: 550px;
+  margin: 24px auto;
+  border-radius: 0 24px 24px 0;
+}
+section.result img {
+  height: 250px;
+}
+section.result div {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - 100px);
+  justify-content: space-between;
+  padding: 24px;
 }
-main form {
-  padding: 10px;
-  border: 1px solid black;
-  display: flex;
-  align-items: flex-start;
-}
-main form div input {
-  display: block;
-  padding: 5px;
-  margin: 5px;
+section.result div p {
+  bottom: 0;
+  text-align: justify;
 }
 
 /*# sourceMappingURL=style.css.map */

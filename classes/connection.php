@@ -25,7 +25,12 @@ class Connection
 	{
 		$request = $this->PDO->prepare('SELECT * FROM user WHERE email=:email');
 		$request->execute(['email' => $email]);
-		return $request->fetchAll()[0];
+		$result = $request->fetchAll();
+		if(sizeof($result) === 0){
+			return false;
+		}else{
+			return $result[0];
+		}
 	}
 	
 }

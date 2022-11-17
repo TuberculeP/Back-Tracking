@@ -34,6 +34,17 @@ if(isset($_SESSION["user"])){
 			}?>>
         <input type="password" name="password" placeholder="password">
         <input type="submit" name="login" value="Login">
+        <?php if($_GET && isset($_GET["error"])) {
+            
+            if($_GET['error'] === 'email'){
+                
+                echo '<p>Erreur : l\'email est inconnu. <a href="./register.php">Créer un compte ?</a></p>';
+                
+            }elseif($_GET['error'] === 'password'){
+                echo '<p>Erreur : Mot de passe erroné</p>';
+            }
+            
+        }?>
     </form>
     <a href="./register.php">Pas de compte ? S'inscrire</a>
 </main>
