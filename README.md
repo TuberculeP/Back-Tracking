@@ -7,7 +7,6 @@
 
 - Consulter des films par catégorie
 
-- Résultats de recherche triés par **nom/avis imdb/popularité**
 - Résultats filtrés par **visionné'** / **classification d'age**
 - Créer des albums ('liste d'envies', 'visionnés', + ...)
 - Ajouter/Retirer des films dans ces albums
@@ -16,6 +15,7 @@
 - Albums partagés
 
 
+- Résultats de recherche triés par **nom/avis imdb/popularité** DONE
 - Utilisation de l'API **TMDB** DONE
 - Se connecter / S'inscrire DONE
 - Consulter des films par résultat de recherche DONE
@@ -23,10 +23,10 @@
 
 ### Imposé :
 
-- PHP Orienté Objet DONE
 - Tailwind (avec responsive évidemment)
-- Axios DONE
 - Sécurisation
+- PHP Orienté Objet DONE
+- Axios DONE
 
 ### Bonus pour moi lol
 

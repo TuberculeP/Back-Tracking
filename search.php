@@ -6,7 +6,7 @@ $link = "";
 if($_GET){
 	if (isset($_GET['query'])){
         if($_GET['query']===''){
-            header('location:./search.php?discover=popular');
+            header('location:./search.php?discover=trending');
         }
         $link = "./search.php?query=".str_replace(' ', '+',$_GET['query']);
 		$url_name = 'https://api.themoviedb.org/3/search/movie?query='
@@ -20,7 +20,7 @@ if($_GET){
 		$link = "./search.php?discover=".$_GET['discover'];
         $req_type = $_GET['discover']==='trending'
             ?'trending/movie/week?'
-            :'discover/movie?sort_by=primary_release_date.desc&';
+            :'discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte='.date('Y-m-d').'&';
 		$url_name = 'http://api.themoviedb.org/3/' .$req_type .'api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
 		$ch_session = curl_init();
 		curl_setopt($ch_session, CURLOPT_RETURNTRANSFER, 1);
