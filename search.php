@@ -1,6 +1,9 @@
 <?php
 $page_title = 'Rechercher';
 require_once './template/header.php';
+if(!isset($_SESSION['user'])){
+	header('location:./login.php');
+}
 $link = "";
 
 if($_GET){

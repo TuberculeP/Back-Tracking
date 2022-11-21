@@ -2,6 +2,15 @@
     require_once './classes/connection.php';
     require_once './classes/user.php';
     session_start();
+    
+    if(!isset($_SESSION['current'])){
+		$_SESSION['current'] = $_SERVER['REQUEST_URI'];
+    }
+    if($_SERVER['REQUEST_URI'] !== '/favicon.ico'){
+		$_SESSION['previous'] = $_SESSION['current'];
+		$_SESSION['current'] = $_SERVER['REQUEST_URI'];
+    }
+    
 ?>
 
 <!--  $page_title doit être référencé avant tout require ou require_once de cette page --->
@@ -52,7 +61,7 @@
         </div>
     
     <div class="profile">
-        <h3><?=$_SESSION['user']->pseudo?></h3>
+        <a href="profile.php"><h3><?=$_SESSION['user']->pseudo?></h3></a>
         <a href="disconnect.php">Se déconnecter</a>
     </div>
     

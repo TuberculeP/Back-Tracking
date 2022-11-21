@@ -1,6 +1,9 @@
 <?php
 $page_title = 'IIMovies';
 require_once './template/header.php';
+if(!isset($_SESSION['user'])){
+	header('location:./login.php');
+}
 
 $url_name = 'https://api.themoviedb.org/3/movie/' . $_GET['id'] . '?api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
 $ch_session = curl_init();
@@ -50,10 +53,33 @@ function clean($string) {
                 <p><?=$movie['overview']?></p>
                 <button id="view">Noté comme visionné</button>
                 <button id="album">Ajouter à un album</button>
+                <p><?=$movie['id']?></p>
+                <script>
+                    document.querySelector("#album").addEventListener('click', function(){
+                        document.querySelector('.modal-container').style.display = 'flex';
+                    })
+                </script>
+                <div class="modal-container">
+                    <form class="modal" method="post" action="add_movie.php?id=<?=$_GET['id']?>">
+                        <input type="hidden" name="form_toggler">
+                        <?php
+                        $db = new Connection();
+                        foreach($db->getAlbums($_SESSION['id']) as $album):
+                        ?>
+                            <label for="<?=$album['id']?>"><?=$album['name']?></label>
+                            <input type="checkbox" id="<?=$album['id']?>" name="<?=$album['id']?>"
+                                <?php
+                                if($db->movieInAlbum($movie['id'], $album['id'])){
+                                    echo ' checked';
+                                }
+                                ?>
+                            >
+                        <?php endforeach;?>
+                        <button type="submit">Terminé</button>
+                    </form>
+                </div>
             </section>
 		</div>
-  
-  
 		<div>
 			<pre>
 				<?php

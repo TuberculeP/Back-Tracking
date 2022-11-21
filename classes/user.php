@@ -73,4 +73,5 @@ class User
 		$request->execute(['pseudo' => $this->pseudo]);
 		return (sizeof($request->fetchAll())>0);
 	}
+	
 }
