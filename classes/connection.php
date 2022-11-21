@@ -76,7 +76,8 @@ class Connection
 		return $album ?? false;
 	}
 	
-	public function albumUpdate($query, $movie_id, $album_id){
+	public function albumUpdate($query, $movie_id, $album_id): bool
+	{
 		if($query === 'delete'){
 			$request = $this->PDO->prepare(
 				'DELETE FROM movie_album WHERE movie_id=:m AND album_id=:a'
@@ -86,7 +87,20 @@ class Connection
 				'INSERT INTO movie_album(movie_id, album_id) VALUES (:m, :a)'
 			);
 		}
-		return $request->execute(['m' => $movie_id, 'a' => $album_id]);
+		$result = $request->execute(['m' => $movie_id, 'a' => $album_id]);
+		
+		//vérifions que l'album existe
+		$request = $this->PDO->prepare('SELECT * FROM movie_album WHERE album_id=:album_id');
+		$request->execute(['album_id' => $album_id]);
+		
+		if(sizeof($request->fetchAll()) === 0){
+			$request = $this->PDO->prepare('DELETE FROM album_by WHERE album_id=:album_id');
+			$request->execute(['album_id' => $album_id]);
+			$request = $this->PDO->prepare('DELETE FROM album WHERE id=:album_id');
+			$request->execute(['album_id' => $album_id]);
+		}
+		
+		return $result;
 	}
 	
 	public function movieInAlbum($movie_id, $album_id): bool

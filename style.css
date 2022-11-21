@@ -156,5 +156,12 @@ div.modal-container .modal {
   padding: 3em;
   border-radius: 32px;
 }
+div.modal-container .modal > div {
+  margin: 10px;
+}
+div.modal-container .modal button {
+  display: block;
+  margin: auto;
+}
 
 /*# sourceMappingURL=style.css.map */

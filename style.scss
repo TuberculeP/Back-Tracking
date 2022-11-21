@@ -160,5 +160,12 @@ div.modal-container{
     background-color: white;
     padding: 3em;
     border-radius: 32px;
+    >div{
+      margin: 10px;
+    }
+    button{
+      display: block;
+      margin: auto;
+    }
   }
 }

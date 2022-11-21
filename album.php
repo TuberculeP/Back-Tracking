@@ -8,8 +8,11 @@ if($_GET && isset($_GET['id'])){
 	require_once 'classes/connection.php';
 	$db = new Connection();
 	$album = $db->getAlbumSpec($_GET['id']);
+    if($album['movie'][0] === null){
+        header('location:./profile.php');
+    }
 }else{
-	header('./');
+	header('location:./');
 }
 
 ?>

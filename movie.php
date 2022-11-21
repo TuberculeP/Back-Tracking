@@ -54,30 +54,49 @@ function clean($string) {
                 <button id="view">Noté comme visionné</button>
                 <button id="album">Ajouter à un album</button>
                 <p><?=$movie['id']?></p>
-                <script>
-                    document.querySelector("#album").addEventListener('click', function(){
-                        document.querySelector('.modal-container').style.display = 'flex';
-                    })
-                </script>
+                
                 <div class="modal-container">
                     <form class="modal" method="post" action="add_movie.php?id=<?=$_GET['id']?>">
-                        <input type="hidden" name="form_toggler">
+                        <h4>Ajouter à une liste existante</h4>
                         <?php
                         $db = new Connection();
                         foreach($db->getAlbums($_SESSION['id']) as $album):
                         ?>
-                            <label for="<?=$album['id']?>"><?=$album['name']?></label>
-                            <input type="checkbox" id="<?=$album['id']?>" name="<?=$album['id']?>"
-                                <?php
-                                if($db->movieInAlbum($movie['id'], $album['id'])){
-                                    echo ' checked';
-                                }
-                                ?>
-                            >
+                            <div>
+                                <input type="checkbox" id="<?=$album['id']?>" name="<?=$album['id']?>"
+									<?php
+									if($db->movieInAlbum($movie['id'], $album['id'])){
+										echo ' checked';
+									}
+									?>
+                                >
+                                <label for="<?=$album['id']?>"><?=$album['name']?></label>
+                            </div>
+                            
                         <?php endforeach;?>
+                        <h4>Nouvel album</h4>
+                        <div>
+                            <label for="new">Nom</label>
+                            <input type="text" name="new_album" id="new">
+                        </div>
                         <button type="submit">Terminé</button>
                     </form>
                 </div>
+                <script>
+                    document.querySelector("#album").addEventListener('click', function(){
+                        document.querySelector('.modal-container').style.display = 'flex';
+                    })
+                    let modalClicked = false;
+                    document.querySelector('form.modal').addEventListener('click',()=>{
+                        modalClicked = true;
+                    })
+                    document.querySelector('.modal-container').addEventListener('click',function(){
+                        if(!modalClicked){
+                            this.style.display = 'none'
+                        }
+                        modalClicked = false;
+                    })
+                </script>
             </section>
 		</div>
 		<div>

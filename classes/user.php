@@ -25,7 +25,7 @@ class User
 		$db = new Connection();
 		$request = $db->PDO->prepare('SELECT id FROM user WHERE email=:email');
 		$request->execute(['email' => $this->email]);
-		return $request->fetchAll()[0];
+		return $request->fetchAll()[0]['id'];
 	}
 	
 	public function getPassword(): string
@@ -72,6 +72,36 @@ class User
 		$request = $db->PDO->prepare('SELECT * FROM user WHERE pseudo=:pseudo');
 		$request->execute(['pseudo' => $this->pseudo]);
 		return (sizeof($request->fetchAll())>0);
+	}
+	
+	public function createAlbum($name): array|bool
+	{
+		require_once 'connection.php';
+		$db = new Connection();
+		
+		//créer l'album
+		$request = $db->PDO->prepare('INSERT INTO album (name) VALUES (:name)');
+		$request->execute(['name' => $name]);
+		
+		//récupérer l'ID
+		$request = $db->PDO->prepare('SELECT * FROM album WHERE name=:name ORDER BY id DESC');
+		$result = $request->execute(['name' => $name]);
+		if($result !== false){
+			$album = $request->fetchAll()[0];
+			$this->contribute($album['id']);
+		}
+		return $album ?? false;
+	}
+	
+	public function contribute($album_id): bool
+	{
+		require_once 'connection.php';
+		$db = new Connection();
+		$request = $db->PDO->prepare('INSERT INTO album_by (user_id, album_id) VALUES (:u, :a)');
+		return $request->execute([
+			'u' => $this->getID(),
+			'a' => $album_id
+		]);
 	}
 	
 }
