@@ -6,25 +6,26 @@
 
 
 - Consulter des films par catégorie
-
 - Résultats filtrés par **visionné'** / **classification d'age**
-- Créer des albums ('liste d'envies', 'visionnés', + ...)
-- Ajouter/Retirer des films dans ces albums
-- Consulter les profils des autres utilisaeurs (infos, albums publics)
+- Albums par défaut ('liste d'envies', 'visionnés', + ...)
 - Liker les albums publics (apparition sous notre profil)
 - Albums partagés
-
-
-- Résultats de recherche triés par **nom/avis imdb/popularité** DONE
-- Utilisation de l'API **TMDB** DONE
-- Se connecter / S'inscrire DONE
-- Consulter des films par résultat de recherche DONE
-- Consulter un film DONE
 
 ### Imposé :
 
 - Tailwind (avec responsive évidemment)
 - Sécurisation
+
+### DONE
+
+- Consulter les profils des autres utilisateurs (infos, albums publics)
+- Ajouter/Retirer des films dans ces albums
+- Créer des albums 
+- Résultats de recherche triés par **nom/avis imdb/popularité**
+- Utilisation de l'API **TMDB**
+- Se connecter / S'inscrire
+- Consulter des films par résultat de recherche
+- Consulter un film
 - PHP Orienté Objet DONE
 - Axios DONE
 
