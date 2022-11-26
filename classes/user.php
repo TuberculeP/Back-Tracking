@@ -28,6 +28,24 @@ class User
 		return $request->fetchAll()[0]['id'];
 	}
 	
+	static function getName($id)
+	{
+		require_once 'connection.php';
+		$db = new Connection();
+		$request = $db->PDO->prepare('SELECT first_name,last_name,pseudo FROM user WHERE id=:id');
+		$request->execute(['id' => $id]);
+		return $request->fetchAll()[0];
+	}
+	
+	static function search($query): bool|array
+	{
+		require_once 'connection.php';
+		$db = new Connection();
+		$request = $db->PDO->prepare("SELECT pseudo, id FROM user WHERE pseudo LIKE '".$query."%'");
+		$request->execute();
+		return $request->fetchAll();
+	}
+	
 	public function getPassword(): string
 	{
 		return $this->password;

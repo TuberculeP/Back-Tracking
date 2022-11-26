@@ -25,6 +25,9 @@ if($_GET){
             ?'trending/movie/week?'
             :'discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte='.date('Y-m-d').'&';
 		$url_name = 'http://api.themoviedb.org/3/' .$req_type .'api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
+        if(isset($_GET['genre'])){
+			$url_name .= '&with_genres='.$_GET['genre'];
+        }
 		$ch_session = curl_init();
 		curl_setopt($ch_session, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch_session, CURLOPT_URL, $url_name);

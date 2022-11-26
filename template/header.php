@@ -10,7 +10,6 @@
 		$_SESSION['previous'] = $_SESSION['current'];
 		$_SESSION['current'] = $_SERVER['REQUEST_URI'];
     }
-    
 ?>
 
 <!--  $page_title doit être référencé avant tout require ou require_once de cette page --->
@@ -42,13 +41,18 @@
             <div>
                 <form action="/search.php">
                     <div class="form">
-                        <input type="text" name="query" id="search" placeholder="Rechercher un film..." autocomplete="off">
+                        <input type="text" name="query" id="search"
+                               placeholder="Rechercher..." autocomplete="off">
                         <button type="submit">Go</button>
                     </div>
                     <div class="search-modal hidden">
-                        <p class="result"></p>
+                        <p class="resultMovie"></p>
                         <hr>
-                        <ul></ul>
+                        <ul class="resultMovie"></ul>
+                        <hr>
+                        <p class="resultUser"></p>
+                        <hr>
+                        <ul class="resultUser"></ul>
                     </div>
                 </form>
                 <a href="/search.php?discover=trending" class="button">

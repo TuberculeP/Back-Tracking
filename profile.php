@@ -12,10 +12,12 @@ require_once 'classes/connection.php';
 $db = new Connection();
 $albums = $db->getAlbums($_GET['id']);
 
+$user = User::getName($_GET['id']);
+
 ?>
 	
 	<main class="profile">
-		
+		<h1><?=$user['pseudo']?></h1>
         <h2>Albums</h2>
         <div>
             <?php foreach ($albums as $album):?>
