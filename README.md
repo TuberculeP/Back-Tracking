@@ -8,8 +8,9 @@
 - Consulter des films par catégorie
 - Résultats filtrés par **visionné'** / **classification d'age**
 - Albums par défaut ('liste d'envies', 'visionnés', + ...)
+- Album privé public
 - Liker les albums publics (apparition sous notre profil)
-- Albums partagés
+- Albums partagés (lien d'invit, acceptation ou pas)
 
 ### Imposé :
 

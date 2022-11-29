@@ -26,8 +26,8 @@
                         response.data['results'].forEach(result => {
                             if(document.querySelectorAll('ul.resultMovie li').length < 5){
                                 list.appendChild(document.createElement('li'));
-                                document.querySelector('ul.resultMovie li:last-child').innerHTML = '<a href="./movie.php?id='
-                                    +result['id']+'">'+result['title']+'</a>';
+                                document.querySelector('ul.resultMovie li:last-child').innerHTML =
+                                    '<a href="./movie.php?id='+result['id']+'">'+result['title']+'</a>';
                             }
                         })
                     })
@@ -50,7 +50,7 @@
                             if(document.querySelectorAll('ul.resultUser li').length < 5){
                                 list2.appendChild(document.createElement('li'));
                                 document.querySelector('ul.resultUser li:last-child').innerHTML =
-                                    '<a href="./profile.php?id=' +result['id']+'">'+result['pseudo']+'</a>';
+                                    '<a href="./profile.php?id='+result['id']+'">'+result['pseudo']+'</a>';
                             }
                         })
                     })

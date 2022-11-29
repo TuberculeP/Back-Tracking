@@ -1,6 +1,12 @@
 <?php
-    require_once './classes/connection.php';
-    require_once './classes/user.php';
+    if(isset($back)){
+		require_once '../classes/connection.php';
+		require_once '../classes/user.php';
+    }else{
+		require_once './classes/connection.php';
+		require_once './classes/user.php';
+    }
+    
     session_start();
     
     if(!isset($_SESSION['current'])){
@@ -22,7 +28,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="icon" href="/assets/img/IIMovies_Icon.png" type="image/png">
     <title><?=$page_title?></title>
 </head>
@@ -65,8 +71,8 @@
         </div>
     
     <div class="profile">
-        <a href="profile.php"><h3><?=$_SESSION['user']->pseudo?></h3></a>
-        <a href="disconnect.php">Se déconnecter</a>
+        <a href="/profile.php"><h3><?=$_SESSION['user']->pseudo?></h3></a>
+        <a href="/disconnect.php">Se déconnecter</a>
     </div>
     
     <?php endif;?>

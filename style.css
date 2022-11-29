@@ -164,4 +164,37 @@ div.modal-container .modal button {
   margin: auto;
 }
 
+main.profile h2 {
+  margin: 20px;
+}
+main.profile div.album-container {
+  display: flex;
+  gap: 30px;
+}
+main.profile div.album-container section {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.24);
+}
+main.profile div.album-container section a {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+main.invite p {
+  width: fit-content;
+  margin: 20px auto;
+  background-color: antiquewhite;
+  padding: 5px;
+}
+main.invite button {
+  display: block;
+  margin: 0 auto;
+  padding: 5px;
+}
+
 /*# sourceMappingURL=style.css.map */

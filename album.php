@@ -14,7 +14,6 @@ if($_GET && isset($_GET['id'])){
 }else{
 	header('location:./');
 }
-
 ?>
 	
 	<main class="profile">
@@ -26,12 +25,19 @@ if($_GET && isset($_GET['id'])){
                 <a href="profile.php?id=<?=$contributor['id']?>"><?=$contributor['pseudo']?></a>
                 <?php
             }?></h2>
+        
 		
         <h2>Infos :</h2>
         <ul>
             <li>Vues : <?=$album['info']['view']?></li>
             <li>Likes : <?=$album['info']['like']?></li>
         </ul>
+        
+        <h2>Inviter à contribuer :</h2>
+        <form action="./invite/create.php" method="post">
+            <input type="hidden" name="album" value="<?=$_GET['id']?>">
+            <button type="submit">Générer un lien</button>
+        </form>
         
         <h1>Film(s) : </h1>
         
@@ -64,10 +70,12 @@ if($_GET && isset($_GET['id'])){
                         <p>Indice de Popularité : <?=$result['popularity']?></p>
                         <p>Note : <?=$result['vote_average']?>/10</p>
                         <p><?=$result['overview']?></p>
-                        <form action="./add_movie.php?id=<?=$result['id']?>" method="post">
-                            <input type="hidden" name="<?=$_GET['id']?>" value="delete">
-                            <button type="submit">Supprimer</button>
-                        </form>
+                        <?php if($_SESSION['user']->isContributor($album)):?>
+                            <form action="./add_movie.php?id=<?=$result['id']?>" method="post">
+                                <input type="hidden" name="<?=$_GET['id']?>" value="delete">
+                                <button type="submit">Supprimer</button>
+                            </form>
+                        <?php endif?>
                     </div>
                 </section>
             </a>

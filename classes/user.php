@@ -122,4 +122,73 @@ class User
 		]);
 	}
 	
+	public function link_generate($album_id, $key): bool
+	{
+		require_once 'connection.php';
+		$db = new Connection();
+		$request = $db->PDO->prepare('INSERT INTO
+    										invitation(`key`, album_id, user_id,created_at)
+											VALUES(:key, :album_id, :user_id, NOW())');
+		return $request->execute([
+			'key' => $key,
+			'album_id' => $album_id,
+			'user_id' => $this->getID()
+		]);
+	}
+	
+	public function link_clear(): bool
+	{
+		require_once 'connection.php';
+		$db = new Connection();
+		$request = $db->PDO->prepare('DELETE FROM invitation WHERE NOW() - 24*3600 > created_at -1');
+		return $request->execute();
+	}
+	
+	public function link_get($key): array|bool
+	{
+		require_once 'connection.php';
+		$db = new Connection();
+		//virer les liens expirés
+		$this->link_clear();
+		//
+		$request = $db->PDO->prepare('SELECT * FROM invitation WHERE `key`=:key');
+		$request->execute([
+			'key' => $key
+		]);
+		$result =  $request->fetchAll();
+		if(sizeof($result)>0){
+			return $result[0];
+		}else{
+			return [];
+		}
+	}
+	
+	public function link_getAll($album_id): bool|array
+	{
+		require_once 'connection.php';
+		$db = new Connection();
+		//virer les liens expirés
+		$this->link_clear();
+		//
+		$request = $db->PDO->prepare('SELECT * FROM invitation WHERE `album_id`=:album_id');
+		$request->execute([
+			'album_id' => $album_id
+		]);
+		$result =  $request->fetchAll();
+		if(sizeof($result)>0){
+			return $result[0];
+		}else{
+			return [];
+		}
+	}
+	
+	public function isContributor($album_specs): bool
+	{
+		foreach($album_specs['contributor'] as $contributor){
+			if($contributor['id'] === $this->getID()){
+				return true;
+			}
+		}
+		return false;
+	}
 }

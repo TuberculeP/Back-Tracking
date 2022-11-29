@@ -169,3 +169,40 @@ div.modal-container{
     }
   }
 }
+
+main.profile{
+  h2{
+    margin: 20px;
+  }
+  div.album-container{
+    display: flex;
+    gap: 30px;
+    section{
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.24);
+      a{
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+
+      }
+    }
+  }
+}
+main.invite{
+  p{
+    width: fit-content;
+    margin: 20px auto;
+    background-color: antiquewhite;
+    padding: 5px;
+  }
+  button{
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+  }
+}
