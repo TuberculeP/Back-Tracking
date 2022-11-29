@@ -36,7 +36,7 @@
 
 <header>
     <div class="logo title">
-        <a href="./">
+        <a href="/">
             <img src="/assets/img/IIMovies_LogoText.png" alt="IIMovies">
         </a>
     </div>
