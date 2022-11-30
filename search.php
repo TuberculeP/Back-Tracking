@@ -25,15 +25,20 @@ if($_GET){
             ?'trending/movie/week?'
             :'discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte='.date('Y-m-d').'&';
 		$url_name = 'http://api.themoviedb.org/3/' .$req_type .'api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
-        if(isset($_GET['genre'])){
-			$url_name .= '&with_genres='.$_GET['genre'];
-        }
 		$ch_session = curl_init();
 		curl_setopt($ch_session, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch_session, CURLOPT_URL, $url_name);
 		$result_url = array_slice(
                 json_decode(curl_exec($ch_session), true)['results'], 0, 20, true
         );
+    }elseif(isset($_GET['genre'])){
+		$link = "./search.php?genre=".$_GET['genre'];
+		$url_name = 'http://api.themoviedb.org/3/discover/movie?api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr'
+            .'&with_genres='.$_GET['genre'];
+		$ch_session = curl_init();
+		curl_setopt($ch_session, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch_session, CURLOPT_URL, $url_name);
+		$result_url = json_decode(curl_exec($ch_session), true)['results'];
     }
 }
 ?>
@@ -59,7 +64,7 @@ if($_GET){
         </div>
             <div class="movie-container">
 				<?php
-				if((isset($_GET['query']) || isset($_GET['discover'])) && isset($result_url)){
+				if((isset($_GET['query']) || isset($_GET['discover']) || isset($_GET['genre'])) && isset($result_url)){
 					if(isset($_GET['sort']) && array_key_exists($_GET['sort'], $result_url[0])){
 						$sort_parameter = array_column($result_url, $_GET['sort']);
 						array_multisort($sort_parameter,

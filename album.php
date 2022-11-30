@@ -4,7 +4,6 @@ require_once 'template/header.php';
 if(!isset($_SESSION['user'])) {
 	header('location:./login.php');
 }
-
 if($_GET && isset($_GET['id'])){
 	require_once 'classes/album.php';
 	$album = Album::find($_GET['id']);
@@ -13,7 +12,6 @@ if($_GET && isset($_GET['id'])){
     if(sizeof($stuff['movie']) === 0){
         header('location:./profile.php');
     }
-
 ?>
 	
 	<main class="profile">
