@@ -182,9 +182,9 @@ class User
 		}
 	}
 	
-	public function isContributor($album_specs): bool
+	public function isContributor($stuff): bool
 	{
-		foreach($album_specs['contributor'] as $contributor){
+		foreach($stuff['contributor'] as $contributor){
 			if($contributor['id'] === $this->getID()){
 				return true;
 			}

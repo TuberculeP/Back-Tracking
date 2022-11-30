@@ -60,17 +60,17 @@ function clean($string) {
                         <h4>Ajouter à une liste existante</h4>
                         <?php
                         $db = new Connection();
-                        foreach($db->getAlbums($_SESSION['id']) as $album):
+                        foreach(Album::all($_SESSION['id']) as $album):
                         ?>
                             <div>
-                                <input type="checkbox" id="<?=$album['id']?>" name="<?=$album['id']?>"
+                                <input type="checkbox" id="<?=$album->id?>" name="<?=$album->id?>"
 									<?php
-									if($db->movieInAlbum($movie['id'], $album['id'])){
+									if($album->contains($movie['id'])){
 										echo ' checked';
 									}
 									?>
                                 >
-                                <label for="<?=$album['id']?>"><?=$album['name']?></label>
+                                <label for="<?=$album->id?>"><?=$album->name?></label>
                             </div>
                             
                         <?php endforeach;?>

@@ -2,9 +2,11 @@
     if(isset($back)){
 		require_once '../classes/connection.php';
 		require_once '../classes/user.php';
+		require_once '../classes/album.php';
     }else{
 		require_once './classes/connection.php';
 		require_once './classes/user.php';
+		require_once './classes/album.php';
     }
     
     session_start();

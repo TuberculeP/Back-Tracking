@@ -8,9 +8,8 @@ if(!isset($_GET['id'])){
     header('location:./profile.php?id='.$_SESSION['id']);
 }
 
-require_once 'classes/connection.php';
-$db = new Connection();
-$albums = $db->getAlbums($_GET['id']);
+require_once 'classes/album.php';
+$albums = Album::all($_GET['id']);
 
 $user = User::getName($_GET['id']);
 
@@ -23,30 +22,26 @@ $user = User::getName($_GET['id']);
             <h2>Albums</h2>
             <div class="album-container">
 				<?php foreach ($albums as $album):?>
-                    <section>
-                        <h3><?=$album['name']?></h3>
-                        <ul>
-                            <li>Vues : <?=$album['view']?></li>
-                            <li>Likes : <?=$album['like']?></li>
-                        </ul>
-                        <a href="album.php?id=<?=$album['id']?>">Voir</a>
-                    </section>
+                    <a href="album.php?id=<?=$album->id?>">
+                        <section>
+                            <img src='<?=$album->getThumbnail()?>' alt='<?=$album->name?>'>
+                            <div>
+                                <h3><?=$album->name?></h3>
+                                <ul>
+                                    <li>Vues : <?=$album->view?></li>
+                                    <li>Likes : <?=$album->like?></li>
+                                </ul>
+
+                            </div>
+                        </section>
+                    </a>
 				<?php endforeach; ?>
             </div>
         </div>
         <div>
             <h2>Likes</h2>
             <div class="album-container">
-				<?php foreach ($albums as $album):?>
-                    <section>
-                        <h3><?=$album['name']?></h3>
-                        <ul>
-                            <li>Vues : <?=$album['view']?></li>
-                            <li>Likes : <?=$album['like']?></li>
-                        </ul>
-                        <a href="album.php?id=<?=$album['id']?>">Voir</a>
-                    </section>
-				<?php endforeach; ?>
+				
             </div>
         </div>
         

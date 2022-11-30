@@ -4,23 +4,23 @@ require_once 'template/header.php';
 if(!isset($_SESSION['user'])) {
 	header('location:./login.php');
 }
+
 if($_GET && isset($_GET['id'])){
-	require_once 'classes/connection.php';
-	$db = new Connection();
-	$album = $db->getAlbumSpec($_GET['id']);
-    if($album['movie'][0] === null){
+	require_once 'classes/album.php';
+	$album = Album::find($_GET['id']);
+    $stuff = $album->getStuff();
+    
+    if(sizeof($stuff['movie']) === 0){
         header('location:./profile.php');
     }
-}else{
-	header('location:./');
-}
+
 ?>
 	
 	<main class="profile">
 		
-		<h1><?=$album['info']['name']?></h1>
+		<h1><?=$album->name?></h1>
         <h2>Par : <?php
-            foreach ($album['contributor'] as $contributor){
+            foreach ($stuff['contributor'] as $contributor){
             ?>
                 <a href="profile.php?id=<?=$contributor['id']?>"><?=$contributor['pseudo']?></a>
                 <?php
@@ -29,8 +29,8 @@ if($_GET && isset($_GET['id'])){
 		
         <h2>Infos :</h2>
         <ul>
-            <li>Vues : <?=$album['info']['view']?></li>
-            <li>Likes : <?=$album['info']['like']?></li>
+            <li>Vues : <?=$album->view?></li>
+            <li>Likes : <?=$album->like?></li>
         </ul>
         
         <h2>Inviter à contribuer :</h2>
@@ -43,7 +43,7 @@ if($_GET && isset($_GET['id'])){
         
         <div>
             <?php
-            foreach ($album['movie'] as $movie_id){
+            foreach ($stuff['movie'] as $movie_id){
 				$url_name = 'https://api.themoviedb.org/3/movie/' . $movie_id
                     . '?api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
 				$ch_session = curl_init();
@@ -70,7 +70,7 @@ if($_GET && isset($_GET['id'])){
                         <p>Indice de Popularité : <?=$result['popularity']?></p>
                         <p>Note : <?=$result['vote_average']?>/10</p>
                         <p><?=$result['overview']?></p>
-                        <?php if($_SESSION['user']->isContributor($album)):?>
+                        <?php if($_SESSION['user']->isContributor($stuff)):?>
                             <form action="./add_movie.php?id=<?=$result['id']?>" method="post">
                                 <input type="hidden" name="<?=$_GET['id']?>" value="delete">
                                 <button type="submit">Supprimer</button>
@@ -87,5 +87,9 @@ if($_GET && isset($_GET['id'])){
 	</main>
 
 <?php
+}else{
+	header('location:./');
+}
+
 require_once './template/footer.php';
 ?>
