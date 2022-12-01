@@ -12,6 +12,8 @@ if($_GET && isset($_GET['id'])){
     if(sizeof($stuff['movie']) === 0){
         header('location:./profile.php');
     }
+    if($album->is_public || $_SESSION['user']->isContributor($stuff)){
+    
 ?>
 	
 	<main class="profile">
@@ -85,6 +87,17 @@ if($_GET && isset($_GET['id'])){
 	</main>
 
 <?php
+	}else{
+        ?>
+
+        <main>
+            <h1>Cet album est privé</h1>
+            <p><i>Sa consultation est réservée aux contributeurs</i></p>
+            <a href="./profile.php?id=<?=$stuff['contributor'][0]['id']?>">Retour</a>
+        </main>
+        
+<?php
+	}
 }else{
 	header('location:./');
 }
