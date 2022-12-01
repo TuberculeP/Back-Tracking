@@ -4,7 +4,6 @@ require_once './template/header.php';
 if(!isset($_SESSION['user'])){
 	header('location:./login.php');
 }
-
 $url_name = 'https://api.themoviedb.org/3/movie/'
     . $_GET['id']
     . '?api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
@@ -30,6 +29,15 @@ function clean($string) {
 	return preg_replace('/[^A-Za-z0-9\-]/', '', $string);
 }
 
+if($_POST && isset($_POST['see_movie'])){
+    if(in_array($_GET['id'], $_SESSION["user"]->getSeen())){
+		$_SESSION['user']->forgor($_POST['see_movie']);
+	}else{
+		$_SESSION['user']->rember($_POST['see_movie']);
+	}
+    header('location:./movie.php?id='.$_GET['id']);
+}
+
 ?>
 	<main>
 		<div class="movie">
@@ -53,8 +61,15 @@ function clean($string) {
                 </p>
                 <p>Durée : <?=$movie['runtime']?> minutes</p>
                 <p><?=$movie['overview']?></p>
-                <button id="view">Noté comme visionné</button>
-                <button id="album">Ajouter à un album</button>
+                <form method="post">
+                    <input type="hidden" name="see_movie" value="<?=$_GET['id']?>">
+                    <button type="submit">
+                        <?php
+                            echo in_array($_GET['id'], $_SESSION["user"]->getSeen())?'Supprimer des':'Ajouter aux'
+                        ?> visionnés
+                    </button>
+                </form>
+                <button>Ajouter à un album</button>
                 <p><?=$movie['id']?></p>
                 
                 <div class="modal-container">
