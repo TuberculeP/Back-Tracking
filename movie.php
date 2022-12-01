@@ -5,7 +5,9 @@ if(!isset($_SESSION['user'])){
 	header('location:./login.php');
 }
 
-$url_name = 'https://api.themoviedb.org/3/movie/' . $_GET['id'] . '?api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
+$url_name = 'https://api.themoviedb.org/3/movie/'
+    . $_GET['id']
+    . '?api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
 $ch_session = curl_init();
 curl_setopt($ch_session, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch_session, CURLOPT_URL, $url_name);
@@ -78,6 +80,10 @@ function clean($string) {
                         <div>
                             <label for="new">Nom</label>
                             <input type="text" name="new_album" id="new">
+                            <select name="is_public" id="privacy">
+                                <option value="1">Publique</option>
+                                <option value="0">Privé</option>
+                            </select>
                         </div>
                         <button type="submit">Terminé</button>
                     </form>

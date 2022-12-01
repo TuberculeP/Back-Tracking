@@ -9,6 +9,7 @@
 - Albums par défaut ('liste d'envies', 'visionnés', + ...)
 - Album privé public
 - Liker les albums publics (apparition sous notre profil)
+- Possibilité de voir les films +18
 
 ### Imposé :
 

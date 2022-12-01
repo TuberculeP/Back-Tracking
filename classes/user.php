@@ -92,21 +92,24 @@ class User
 		return (sizeof($request->fetchAll())>0);
 	}
 	
-	public function createAlbum($name): array|bool
+	public function createAlbum($name, $is_public): Album|bool
 	{
 		require_once 'connection.php';
+		require_once './classes/album.php';
 		$db = new Connection();
 		
 		//créer l'album
-		$request = $db->PDO->prepare('INSERT INTO album (name) VALUES (:name)');
-		$request->execute(['name' => $name]);
+		$request = $db->PDO->prepare('INSERT INTO album (`name`, is_public) VALUES (:name, :is_public)');
+		$request->execute(['name' => $name, 'is_public' => (int)$is_public]);
 		
 		//récupérer l'ID
 		$request = $db->PDO->prepare('SELECT * FROM album WHERE name=:name ORDER BY id DESC');
 		$result = $request->execute(['name' => $name]);
 		if($result !== false){
-			$album = $request->fetchAll()[0];
-			$this->contribute($album['id']);
+			$data = $request->fetchAll()[0];
+			var_dump($data);
+			$album = new Album($data);
+			$this->contribute($album->id);
 		}
 		return $album ?? false;
 	}
