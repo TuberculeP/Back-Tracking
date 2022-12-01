@@ -21,7 +21,8 @@ $user = User::getName($_GET['id']);
         <div>
             <h2>Albums</h2>
             <div class="album-container">
-				<?php foreach ($albums as $album):?>
+				<?php foreach ($albums as $album):
+                    if($album->is_public || $_SESSION['user']->isContributor($album->getStuff())):?>
                     <a href="album.php?id=<?=$album->id?>">
                         <section>
                             <img src='<?=$album->getThumbnail()?>' alt='<?=$album->name?>'>
@@ -35,7 +36,7 @@ $user = User::getName($_GET['id']);
                             </div>
                         </section>
                     </a>
-				<?php endforeach; ?>
+				<?php  endif; endforeach; ?>
             </div>
         </div>
         <div>

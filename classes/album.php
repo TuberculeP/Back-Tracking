@@ -14,7 +14,7 @@ class Album
 		$this->name = $array['name'];
 		$this->view = $array['view'];
 		$this->like = $array['like'];
-		$this->is_public = $array['is_public'];
+		$this->is_public = $array['is_public']===1;
 	}
 	
 	static function find($id): bool|Album
