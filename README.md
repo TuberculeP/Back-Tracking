@@ -7,7 +7,6 @@
 
 - Résultats filtrés par **visionné'** / **classification d'age**
 - Albums par défaut ('liste d'envies', 'visionnés', + ...)
-- Album privé public
 - Liker les albums publics (apparition sous notre profil)
 - Possibilité de voir les films +18
 
@@ -18,6 +17,7 @@
 
 ### DONE
 
+- Album privé public
 - Albums partagés (lien d'invit, acceptation ou pas)
 - Consulter des films par catégorie
 - Consulter les profils des autres utilisateurs (infos, albums publics)

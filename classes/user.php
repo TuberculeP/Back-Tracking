@@ -28,13 +28,13 @@ class User
 		return $request->fetchAll()[0]['id'];
 	}
 	
-	static function getName($id)
+	static function find($id): User|bool
 	{
 		require_once 'connection.php';
 		$db = new Connection();
-		$request = $db->PDO->prepare('SELECT first_name,last_name,pseudo FROM user WHERE id=:id');
+		$request = $db->PDO->prepare('SELECT * FROM user WHERE id=:id');
 		$request->execute(['id' => $id]);
-		return $request->fetchAll()[0];
+		return new User($request->fetchAll()[0]);
 	}
 	
 	static function search($query): bool|array
@@ -193,5 +193,45 @@ class User
 			}
 		}
 		return false;
+	}
+	
+	public function getStuff(): array
+	{
+		require_once 'connection.php';
+		$db = new Connection();
+		$query = $db->PDO->prepare('SELECT * FROM profile WHERE user_id='.$this->getID());
+		$query->execute();
+		$result = $query->fetchAll();
+		return sizeof($result)=== 0? $result: $result[0];
+	}
+	
+	public function updateStuff($stuff): bool
+	{
+		require_once 'connection.php';
+		$db = new Connection();
+		$want_adult = $stuff['want_adult']??0;
+		$stuff['want_adult'] = (int)($stuff['want_adult'] === 'on');
+		$new_stuff = [
+			'u'=>$this->getID(),
+			'd'=>$stuff['description'],
+			'a'=> $want_adult
+		];
+		var_dump($new_stuff);
+		
+		//vérifions qu'il a un profil, sinon le créer
+		$verif = $db->PDO->prepare('SELECT * FROM profile WHERE user_id = '.$this->getID());
+		$verif->execute();
+		if(sizeof($verif->fetchAll())===0){
+			$query = $db->PDO->prepare(
+				'INSERT INTO profile(user_id, description, want_adult) VALUES (:u,:d,:a)');
+			return $query->execute();
+		}else{
+			$query = $db->PDO->prepare('UPDATE profile
+		SET description = :description, want_adult = :want_adult WHERE user_id='.$this->getID());
+			return $query->execute([
+				'description'=>$stuff['description'],
+				'want_adult'=>$stuff['want_adult']
+			]);
+		}
 	}
 }
