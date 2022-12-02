@@ -26,7 +26,7 @@ class Album
 		$query->execute();
 		$result = $query->fetchAll();
 		if(sizeof($result)>0){
-			return new self($query->fetchAll()[0]);
+			return new self($result[0]);
 		}else{
 			return false;
 		}
