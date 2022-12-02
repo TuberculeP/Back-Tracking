@@ -6,7 +6,6 @@
     const divSearch = document.querySelector('div.search-modal');
     const p = document.querySelector('p.resultMovie');
     const p2 = document.querySelector('p.resultUser');
-    console.log(input, list);
     if(input !== undefined && list !== undefined){
         input.addEventListener('keyup', function(){
             
