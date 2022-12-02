@@ -12,7 +12,7 @@ if($_GET && isset($_GET['id']) && $_POST){
 			if(!$album->contains($_GET['id'])){
 				$album->add($_GET['id']);
 			}else{
-				if($_POST[$album['id']] === 'delete'){
+				if($_POST[$album->id] === 'delete'){
 					$album->delete($_GET['id']);
 				}
 			}

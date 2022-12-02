@@ -9,19 +9,21 @@ if(!isset($_SESSION['user'])) {
 if($_GET && isset($_GET['id'])){
 	require_once 'classes/album.php';
 	$album = Album::find($_GET['id']);
-    $stuff = $album->getStuff();
+    if($album){
+		$stuff = $album->getStuff();
 	
-	if($_POST && isset($_POST['delete_album'])){
-		if($_SESSION['user']->isContributor($stuff)){
-			Album::deleteAll($_GET['id']);
+		if($_POST && isset($_POST['delete_album'])){
+			if($_SESSION['user']->isContributor($stuff)){
+				Album::deleteAll($_GET['id']);
+				header('location:./profile.php');
+			}
+		}
+	
+		if(sizeof($stuff['movie']) === 0){
 			header('location:./profile.php');
 		}
-	}
-    
-    if(sizeof($stuff['movie']) === 0){
-        header('location:./profile.php');
-    }
-    if($album->is_public || $_SESSION['user']->isContributor($stuff)){
+		if($album->is_public || $_SESSION['user']->isContributor($stuff)){
+  
     
 ?>
 	
@@ -100,7 +102,7 @@ if($_GET && isset($_GET['id'])){
 	</main>
 
 <?php
-	}else{
+        }else{
         ?>
 
         <main>
@@ -110,6 +112,9 @@ if($_GET && isset($_GET['id'])){
         </main>
         
 <?php
+        }
+	}else{
+        echo '<h1>Pas d\'album trouvé</h1>';
 	}
 }else{
 	header('location:./');

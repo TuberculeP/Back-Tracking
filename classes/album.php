@@ -24,8 +24,12 @@ class Album
 		
 		$query = $db->PDO->prepare('SELECT * FROM album WHERE id='.$id);
 		$query->execute();
-		
-		return new self($query->fetchAll()[0]);
+		$result = $query->fetchAll();
+		if(sizeof($result)>0){
+			return new self($query->fetchAll()[0]);
+		}else{
+			return false;
+		}
 	}
 	
 	static function all($user_id){

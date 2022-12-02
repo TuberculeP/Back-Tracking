@@ -69,7 +69,7 @@ if($_POST && isset($_POST['see_movie'])){
                         ?> visionnés
                     </button>
                 </form>
-                <button>Ajouter à un album</button>
+                <button id="album">Ajouter à un album</button>
                 <p><?=$movie['id']?></p>
                 
                 <div class="modal-container">
