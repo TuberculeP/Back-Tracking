@@ -27,6 +27,9 @@ if($_GET){
 		$url_name = 'http://api.themoviedb.org/3/discover/movie?api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr'
             .'&with_genres='.$_GET['genre'];
     }
+    if($_SESSION['user']->getStuff()['want_adult']===1){
+        $url_name .= '&include_adult=true';
+    }
 }
 ?>
 <main>
