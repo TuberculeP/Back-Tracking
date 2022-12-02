@@ -144,4 +144,12 @@ class Album
 		return 'https://image.tmdb.org/t/p/w500'.json_decode($result_url, true)['backdrop_path'];
 		
 	}
+	
+	static function deleteAll($album_id):bool
+	{
+		require_once 'connection.php';
+		$db = new Connection();
+		$query = $db->PDO->prepare('DELETE FROM album WHERE id='.$album_id);
+		return $query->execute();
+	}
 }

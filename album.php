@@ -4,10 +4,19 @@ require_once 'template/header.php';
 if(!isset($_SESSION['user'])) {
 	header('location:./login.php');
 }
+
+
 if($_GET && isset($_GET['id'])){
 	require_once 'classes/album.php';
 	$album = Album::find($_GET['id']);
     $stuff = $album->getStuff();
+	
+	if($_POST && isset($_POST['delete_album'])){
+		if($_SESSION['user']->isContributor($stuff)){
+			Album::deleteAll($_GET['id']);
+			header('location:./profile.php');
+		}
+	}
     
     if(sizeof($stuff['movie']) === 0){
         header('location:./profile.php');
@@ -19,6 +28,10 @@ if($_GET && isset($_GET['id'])){
 	<main class="profile">
 		
 		<h1><?=$album->name?></h1>
+        <form method="post">
+            <input type="hidden" name="delete_album">
+            <button type="submit">Supprimer l'album</button>
+        </form>
         <h2>Par : <?php
             foreach ($stuff['contributor'] as $contributor){
             ?>
