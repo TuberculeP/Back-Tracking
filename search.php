@@ -118,8 +118,8 @@ if($_GET){
                 let div = document.createElement('div');
                 div.innerHTML = `<a href="./movie.php?id=`+movie['id']+` " class="result">
                 <section class="result">
-                    <img src=""
-                         alt="">
+                    <img src="./assets/img/blank_movie.jpeg"
+                         alt="no poster for this movie">
                         <div>
                             <h2></h2>
                             <p>Indice de Popularité : `+movie['popularity']+`</p>
@@ -128,8 +128,10 @@ if($_GET){
                         </div>
                 </section>
             </a>`
-                div.querySelector('img').src = 'https://image.tmdb.org/t/p/w500'+movie['poster_path']
-                div.querySelector('img').alt = 'poster_for '+movie['id']
+                if(movie['poster_path']!==null){
+                    div.querySelector('img').src = 'https://image.tmdb.org/t/p/w500'+movie['poster_path']
+                    div.querySelector('img').alt = 'poster_for '+movie['id']
+                }
                 div.querySelector('h2').innerHTML = (movie['original_language']==='fr'
                     ?movie['original_title']
                     :movie['title']) + ' ('+movie['release_date'].split('-')[0]+')'

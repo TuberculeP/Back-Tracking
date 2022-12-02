@@ -57,7 +57,10 @@ $stuff = $user->getStuff();
                     if($album->is_public || $_SESSION['user']->isContributor($album->getStuff())):?>
                     <a href="album.php?id=<?=$album->id?>">
                         <section>
-                            <img src='<?=$album->getThumbnail()?>' alt='<?=$album->name?>'>
+                            <img src='<?=$album->getThumbnail()!='https://image.tmdb.org/t/p/w500'
+                                ?$album->getThumbnail()
+                                :'https://cdn.pixabay.com/photo/2012/04/15/18/57/dvd-34919_960_720.png'?>'
+                                 alt='<?=$album->name?>'>
                             <div>
                                 <h3><?=$album->name?></h3>
                                 <ul>
