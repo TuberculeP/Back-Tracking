@@ -64,7 +64,7 @@ class User
 			(first_name, last_name, age, pseudo, email, password)
     		VALUES
     		(:first_name, :last_name, :age, :pseudo, :email, :password)');
-		return $request->execute([
+		$result = $request->execute([
 			'first_name' => htmlspecialchars($this->first_name),
 			'last_name' => htmlspecialchars($this->last_name),
 			'age' => $this->age,
@@ -235,22 +235,22 @@ class User
 		}
 	}
 	
-	public function rember($movie_id): bool
+	public function rember($movie_id, $table): bool
 	{
 		require_once 'connection.php';
 		$db = new Connection();
-		$query = $db->PDO->prepare('INSERT INTO seen(user_id, movie_id) VALUES (:u, :m)');
+		$query = $db->PDO->prepare('INSERT INTO '.$table.'(user_id, movie_id) VALUES (:u, :m)');
 		return $query->execute([
 			'm'=>$movie_id,
 			'u'=>$this->getID()
 		]);
 	}
 	
-	public function forgor($movie_id): bool
+	public function forgor($movie_id, $table): bool
 	{
 		require_once 'connection.php';
 		$db = new Connection();
-		$query = $db->PDO->prepare('DELETE FROM seen WHERE user_id = :u AND movie_id = :m');
+		$query = $db->PDO->prepare('DELETE FROM '.$table.' WHERE user_id = :u AND movie_id = :m');
 		return $query->execute([
 			'm'=>$movie_id,
 			'u'=>$this->getID()
@@ -261,6 +261,18 @@ class User
 	{
 		$db = new Connection();
 		$query = $db->PDO->prepare('SELECT movie_id FROM seen where user_id='.$this->getID());
+		$query->execute();
+		$result = [];
+		foreach($query->fetchAll() as $arr){
+			$result[] = $arr['movie_id'];
+		}
+		return $result;
+	}
+	
+	public function getWanted(): Array
+	{
+		$db = new Connection();
+		$query = $db->PDO->prepare('SELECT movie_id FROM wanted where user_id='.$this->getID());
 		$query->execute();
 		$result = [];
 		foreach($query->fetchAll() as $arr){

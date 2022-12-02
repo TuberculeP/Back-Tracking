@@ -28,14 +28,22 @@ function clean($string) {
  
 	return preg_replace('/[^A-Za-z0-9\-]/', '', $string);
 }
-
-if($_POST && isset($_POST['see_movie'])){
-    if(in_array($_GET['id'], $_SESSION["user"]->getSeen())){
-		$_SESSION['user']->forgor($_POST['see_movie']);
-	}else{
-		$_SESSION['user']->rember($_POST['see_movie']);
-	}
-    header('location:./movie.php?id='.$_GET['id']);
+if($_POST){
+    if(isset($_POST['see_movie'])){
+		if(in_array($_GET['id'], $_SESSION["user"]->getSeen())){
+			$_SESSION['user']->forgor($_POST['see_movie'], 'seen');
+		}else{
+			$_SESSION['user']->rember($_POST['see_movie'], 'seen');
+		}
+		header('location:./movie.php?id='.$_GET['id']);
+    }elseif(isset($_POST['want_movie'])){
+		if(in_array($_GET['id'], $_SESSION["user"]->getWanted())){
+			$_SESSION['user']->forgor($_POST['want_movie'], 'wanted');
+		}else{
+			$_SESSION['user']->rember($_POST['want_movie'], 'wanted');
+		}
+		header('location:./movie.php?id='.$_GET['id']);
+    }
 }
 
 ?>
@@ -67,6 +75,14 @@ if($_POST && isset($_POST['see_movie'])){
                         <?php
                             echo in_array($_GET['id'], $_SESSION["user"]->getSeen())?'Supprimer des':'Ajouter aux'
                         ?> visionnés
+                    </button>
+                </form>
+                <form method="post">
+                    <input type="hidden" name="want_movie" value="<?=$_GET['id']?>">
+                    <button type="submit">
+						<?php
+						echo in_array($_GET['id'], $_SESSION["user"]->getWanted())?'Supprimer de':'Ajouter à'
+						?> la liste de souhaits
                     </button>
                 </form>
                 <button id="album">Ajouter à un album</button>

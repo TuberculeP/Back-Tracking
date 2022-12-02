@@ -4,7 +4,6 @@
 
 ### Fonctionnalités attendues :
 
-
 - Résultats filtrés par **visionné'** / **classification d'age**
 - Albums par défaut ('liste d'envies', 'visionnés', + ...)
 - Liker les albums publics (apparition sous notre profil)
