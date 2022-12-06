@@ -39,7 +39,7 @@
                 divSearch.classList.add('hidden');
             }else{
                 divSearch.classList.remove('hidden');
-                axios.get('./api?query=' + this.value)
+                axios.get('./api/user?query=' + this.value)
                     .then(response => {
                         p2.innerHTML = "Utilisateurs : " + response.data['total_result'];
                         if(response.data['total_result'] === 10000) {

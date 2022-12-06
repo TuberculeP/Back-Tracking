@@ -5,9 +5,7 @@
 ### Fonctionnalités attendues :
 
 - Résultats filtrés par **visionné'** / **classification d'age**
-- Albums par défaut ('liste d'envies', 'visionnés', + ...)
 - Liker les albums publics (apparition sous notre profil)
-- Possibilité de voir les films +18
 
 ### Imposé :
 
@@ -16,6 +14,8 @@
 
 ### DONE
 
+- Possibilité de voir les films +18
+- Albums par défaut ('liste d'envies', 'visionnés', + ...)
 - Album privé public
 - Albums partagés (lien d'invit, acceptation ou pas)
 - Consulter des films par catégorie
