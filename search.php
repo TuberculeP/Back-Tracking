@@ -51,24 +51,46 @@ if($_GET){
             <a href='<?=$link?>&sort=title'>Nom</a>
             <a href='<?=$link?>&sort=vote_average'>Note</a>
             <a href='<?=$link?>&sort=popularity'>Popularité</a>
-            <label for="viewed">Masquer les films visionnés</label>
-            <input type="checkbox" id="viewed">
+            <span>
+                <label for="viewed">Masquer les films visionnés</label>
+                <input type="checkbox" id="viewed">
+            </span>
+            <?php
+			if($_SESSION['user']->getStuff()['want_adult']===1){
+				?>
+                <span>
+                    <label for="oleole">Type : </label>
+                <select name="oleole" id="oleole">
+                    <option value="2">Tout</option>
+                    <option value="1">Uniquement +18</option>
+                    <option value="0">Sans +18</option>
+                </select>
+                </span>
+                <?php
+			}
+            ?>
+            
             <script>
-                let noSeen = false
+                let noSeen = document.querySelector('#viewed').checked;
                 document.querySelector('#viewed').addEventListener('change', function(){
-                    if(this.checked){
-                        noSeen = true;
-                        removeSeen();
-                    }else{
-                        document.querySelector('.movie-container').remove()
-                        let container = document.createElement('div');
-                        container.classList.add('movie-container')
-                        document.querySelector('main').appendChild(container);
-                        getMovies(1, false);
-                        noSeen = false;
-                    }
+                    noSeen = this.checked;
+                    maskMaskable()
+                })
+
+				<?php
+				if($_SESSION['user']->getStuff()['want_adult']===1){
+				?>
+                
+                let boules = document.querySelector('#oleole').value;
+                document.querySelector('#oleole').addEventListener('change', function(){
+                    boules = parseInt(this.value);
+                    maskMaskable()
                 })
                 
+				<?php
+				}
+				?>
+            
             </script>
         </div>
             <div class="movie-container"></div>
@@ -79,8 +101,58 @@ if($_GET){
     ?>
 </main>
     <script>
-        function getMovies(page, no_seen){
-            console.log(page, no_seen);
+        function maskMaskable(){
+             fetch('./api/view?user=<?=$_SESSION['id']?>').then(response => response.json())
+                 .then(data => {
+                     document.querySelectorAll('.movie-container>div').forEach(movie => {
+                         
+                         if(boules === 0){
+                             if(movie.querySelector('input.is_adult').value === 'true'){
+                                 if(!movie.classList.contains('adult_hidden')){
+                                     movie.classList.add('adult_hidden')
+                                 }
+                             }else{
+                                 if(movie.classList.contains('adult_hidden')){
+                                     movie.classList.remove('adult_hidden')
+                                 }
+                             }
+                         }else if(boules === 1){
+                             if(movie.querySelector('input.is_adult').value === 'false'){
+                                 if(!movie.classList.contains('adult_hidden')){
+                                     movie.classList.add('adult_hidden')
+                                 }
+                             }else{
+                                 if(movie.classList.contains('adult_hidden')){
+                                     movie.classList.remove('adult_hidden')
+                                 }
+                             }
+                         }else{
+                             if(movie.classList.contains('adult_hidden')){
+                                 movie.classList.remove('adult_hidden')
+                             }
+                         }
+                         
+                         //masquer des trucs visionnés
+                         if(noSeen){
+                             if(data.includes(parseInt(movie.querySelector('input.movie_id').value))){
+                                if(!movie.classList.contains('seen_hidden')){
+                                    movie.classList.add('seen_hidden')
+                                }
+                             }
+                         }
+                         //démasquer des trucs visionnés
+                         else{
+                             if(data.includes(parseInt(movie.querySelector('input.movie_id').value))){
+                                 if(movie.classList.contains('seen_hidden')){
+                                     movie.classList.remove('seen_hidden')
+                                 }
+                             }
+                         }
+                     })
+                 })
+        }
+        
+        function getMovies(page){
             if(document.querySelector('#more_movies') !== null){
                 document.querySelector('#more_movies').remove();
             }
@@ -118,7 +190,8 @@ if($_GET){
                             <p>Note : `+movie['vote_average']+`/10</p>
                             <p>`+movie['overview']+`</p>
                         </div>
-                        <input type="hidden" name="id" value='`+movie['id']+`'>
+                        <input type="hidden" class="movie_id" value='`+movie['id']+`'>
+                        <input type="hidden" class="is_adult" value='`+movie['adult']+`'>
                 </section>
             </a>`
                     if(movie['poster_path']!==null){
@@ -136,29 +209,36 @@ if($_GET){
                     more.innerHTML = 'Voir plus'
                     more.id="more_movies"
                     more.addEventListener('click', ()=>{
-                        getMovies(page+1, noSeen)
+                        getMovies(page+1)
                     })
                     container.appendChild(more);
                 }
             }).then(()=>{
-                if(no_seen){
-                    removeSeen();
-                }
+                maskMaskable()
             })
             
         }
-        function removeSeen(){
-            fetch('./api/view?user=<?=$_SESSION['id']?>').then(response => response.json())
-                .then(data => {
-                    document.querySelectorAll('.movie-container section').forEach(movie => {
-                        let movie_id = movie.querySelector('input').value
-                        if(data.includes(parseInt(movie_id))){
-                            movie.remove()
+        
+        function sortAdult(){
+            document.querySelectorAll('.movie-container>div').forEach(movie => {
+                let is_adult = movie.querySelector('input.is_adult').value;
+                if(boules === 0){
+                    if(is_adult === 'true'){
+                        if(!movie.classList.contains('adult')){
+                            movie.classList.add('adult')
+                        }if(!movie.classList.contains('movie_hidden')){
+                            movie.classList.add('movie_hidden')
                         }
-                    })
-                });
+                    }
+                }else{
+                    movie.classList.remove('movie_hidden')
+                    if(boules === 1 && is_adult === 'false'){
+                        movie.classList.add('movie_hidden')
+                    }
+                }
+            })
         }
-        getMovies(1, noSeen)
+        getMovies(1)
         
     </script>
 <?php

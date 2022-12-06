@@ -241,4 +241,8 @@ button#more_movies {
   margin: 20px auto;
 }
 
+.seen_hidden, .adult_hidden {
+  display: none;
+}
+
 /*# sourceMappingURL=style.css.map */
