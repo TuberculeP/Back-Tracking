@@ -4,7 +4,6 @@
 
 ### Fonctionnalités attendues :
 
-- Liker les albums publics (apparition sous notre profil)
 - Sécuriser tous les formulaires
 - Veille sur les injections SQL
 
@@ -15,6 +14,7 @@
 
 ### DONE
 
+- Liker les albums publics (apparition sous notre profil)
 - Résultats filtrés par **visionné'** / **classification d'age**
 - Possibilité de voir les films +18
 - Albums par défaut ('liste d'envies', 'visionnés', + ...)

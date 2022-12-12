@@ -54,10 +54,12 @@ if($_GET && isset($_GET['id'])){
             <li>Likes : <?=$album->like?></li>
         </ul>
 
-        <form action="./album.php?id=<?=$album->id?>" method="post">
-            <input type="hidden" name="liked" value="<?=$_SESSION['user']->hasLiked($album->id)?1:0?>">
-            <button type="submit"><?=$_SESSION['user']->hasLiked($album->id)?'Supprimer des likes':'Liker'?></button>
-        </form>
+        <?php if($album->is_public):?>
+                <form action="./album.php?id=<?=$album->id?>" method="post">
+                    <input type="hidden" name="liked" value="<?=$_SESSION['user']->hasLiked($album->id)?1:0?>">
+                    <button type="submit"><?=$_SESSION['user']->hasLiked($album->id)?'Supprimer des likes':'Liker'?></button>
+                </form>
+        <?php endif;?>
         
         <h2>Inviter à contribuer :</h2>
         <form action="./invite/create.php" method="post">
