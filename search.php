@@ -26,6 +26,17 @@ if($_GET){
 		$link = "./search.php?genre=".$_GET['genre'];
 		$url_name = 'http://api.themoviedb.org/3/discover/movie?api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr'
             .'&with_genres='.$_GET['genre'];
+		if(isset($_GET['sort'])){
+			if($_GET['sort']==='title'){
+				$sort_param = 'original_title.asc';
+			}elseif($_GET['sort']==='vote_average'){
+				$sort_param = 'vote_average.desc';
+			}else{
+				$sort_param = 'popularity.desc';
+				
+			}
+			$url_name .= '&sort_by='.$sort_param;
+        }
     }
     if($_SESSION['user']->getStuff()['want_adult']===1){
         $url_name .= '&include_adult=true';
@@ -46,6 +57,8 @@ if($_GET){
             <?php } ?>
             
             <hr>
+        
+        <?php if(isset($_GET['genre']) || isset($_GET['query'])):?>
         <div class="sort">
             <h3>Trier par :</h3>
             <a href='<?=$link?>&sort=title'>Nom</a>
@@ -93,6 +106,8 @@ if($_GET){
             
             </script>
         </div>
+        <?php endif;?>
+        
             <div class="movie-container"></div>
 				<?php
     
@@ -167,7 +182,7 @@ if($_GET){
                     document.querySelector(".results").innerHTML = amount;
                 }
 				<?php
-				if((isset($_GET['query']) || isset($_GET['discover']) || isset($_GET['genre']))):
+				if(isset($_GET['query'])):
 				if(isset($_GET['sort'])):
 				?>
                 let sort_param = '<?=$_GET['sort']?>';
