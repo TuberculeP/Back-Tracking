@@ -280,4 +280,12 @@ class User
 		}
 		return $result;
 	}
+	
+	public function hasLiked($album_id){
+		require_once 'connection.php';
+		$db = new Connection();
+		$request = $db->PDO->prepare('SELECT * FROM like_by WHERE album_id = :a AND user_id = :u');
+		$request->execute(['a'=>$album_id, 'u'=>$this->getID()]);
+		return sizeof($request->fetchAll())>0;
+	}
 }

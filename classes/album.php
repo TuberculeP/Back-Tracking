@@ -156,4 +156,55 @@ class Album
 		$query = $db->PDO->prepare('DELETE FROM album WHERE id='.$album_id);
 		return $query->execute();
 	}
+	
+	public function toggleLike($user_id)
+	{
+		require_once 'connection.php';
+		$db = new Connection();
+		//chercher si l'utilisateur a liké ou pas
+		$request = $db->PDO->prepare('SELECT * FROM like_by WHERE album_id = :a AND user_id = :u');
+		$request->execute(['a'=>$this->id, 'u'=>$user_id]);
+		$arr = $request->fetchAll();
+		
+		if(sizeof($arr)>0){
+			$query1 = 'DELETE FROM like_by WHERE user_id = :u AND album_id = :a';
+			$query2 = 'UPDATE album SET album.like = album.like - 1 WHERE id = '.$this->id;
+		}else{
+			$query1 = 'INSERT INTO like_by(user_id, album_id) VALUES (:u, :a)';
+			$query2 = 'UPDATE album SET album.like = album.like + 1 WHERE id = '.$this->id;
+		}
+		$request = $db->PDO->prepare($query2);
+		$request->execute();
+		
+		$request = $db->PDO->prepare($query1);
+		return $request->execute(['a'=>$this->id, 'u'=>$user_id]);
+		
+	}
+	public function addView(){
+		require_once 'connection.php';
+		$db = new Connection();
+		$request = $db->PDO->prepare('UPDATE album SET view = view +1 WHERE id = '.$this->id);
+		$result = $request->execute();
+		if($result){
+			$this->view += 1;
+		}
+		return $result;
+		
+	}
+	
+	static function getLiked($user_id){
+		require_once 'connection.php';
+		$db = new Connection();
+		
+		$request = $db->PDO->prepare(
+			'SELECT * FROM album JOIN like_by ab on album.id = ab.album_id WHERE ab.user_id='.$user_id
+		);
+		$request->execute();
+		$list = [];
+		foreach($request->fetchAll() as $album){
+			$list[] = new self($album);
+		}
+		
+		return $list;
+	}
 }

@@ -12,6 +12,11 @@ if($_GET && isset($_GET['id'])){
     if($album){
 		$stuff = $album->getStuff();
 	
+        if($_POST && isset($_POST['liked'])){
+            $album->toggleLike($_SESSION['user']->getID());
+            header('location:./album.php?id='.$album->id);
+        }
+        
 		if($_POST && isset($_POST['delete_album'])){
 			if($_SESSION['user']->isContributor($stuff)){
 				Album::deleteAll($_GET['id']);
@@ -23,7 +28,8 @@ if($_GET && isset($_GET['id'])){
 			header('location:./profile.php');
 		}
 		if($album->is_public || $_SESSION['user']->isContributor($stuff)){
-  
+            $album->addView();
+            $album->view
     
 ?>
 	
@@ -47,6 +53,11 @@ if($_GET && isset($_GET['id'])){
             <li>Vues : <?=$album->view?></li>
             <li>Likes : <?=$album->like?></li>
         </ul>
+
+        <form action="./album.php?id=<?=$album->id?>" method="post">
+            <input type="hidden" name="liked" value="<?=$_SESSION['user']->hasLiked($album->id)?1:0?>">
+            <button type="submit"><?=$_SESSION['user']->hasLiked($album->id)?'Supprimer des likes':'Liker'?></button>
+        </form>
         
         <h2>Inviter à contribuer :</h2>
         <form action="./invite/create.php" method="post">

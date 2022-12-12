@@ -77,7 +77,26 @@ $stuff = $user->getStuff();
         <div>
             <h2>Likes</h2>
             <div class="album-container">
-				
+				<?php $albums = Album::getLiked($_SESSION['user']->getID());
+                foreach ($albums as $album):
+					if($album->is_public || $_SESSION['user']->isContributor($album->getStuff())):?>
+                        <a href="album.php?id=<?=$album->id?>">
+                            <section>
+                                <img src='<?=$album->getThumbnail()!='https://image.tmdb.org/t/p/w500'
+									?$album->getThumbnail()
+									:'https://cdn.pixabay.com/photo/2012/04/15/18/57/dvd-34919_960_720.png'?>'
+                                     alt='<?=$album->name?>'>
+                                <div>
+                                    <h3><?=$album->name?></h3>
+                                    <ul>
+                                        <li>Vues : <?=$album->view?></li>
+                                        <li>Likes : <?=$album->like?></li>
+                                    </ul>
+
+                                </div>
+                            </section>
+                        </a>
+					<?php  endif; endforeach; ?>
             </div>
         </div>
         
