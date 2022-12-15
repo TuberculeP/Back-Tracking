@@ -70,7 +70,7 @@ if($_POST){
                 <p>Durée : <?=$movie['runtime']?> minutes</p>
                 <p><?=$movie['overview']?></p>
                 <form method="post">
-                    <input type="hidden" name="see_movie" value="<?=$_GET['id']?>">
+                    <input type="hidden" name="see_movie" value="<?=htmlspecialchars($_GET['id'])?>">
                     <button type="submit">
                         <?php
                             echo in_array($_GET['id'], $_SESSION["user"]->getSeen())?'Supprimer des':'Ajouter aux'

@@ -48,7 +48,7 @@ if($_GET){
     if($_GET){
         if(isset($_GET['query'])){
             ?>
-            <h1><span class="results"></span> résultats pour : "<?=$_GET['query']?>"</h1>
+            <h1><span class="results"></span> résultats pour : "<?=htmlspecialchars($_GET['query'])?>"</h1>
             <?php
         }elseif (isset($_GET['discover'])){
             ?>
