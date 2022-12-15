@@ -213,7 +213,7 @@ class User
 		$stuff['want_adult'] = (int)($stuff['want_adult'] === 'on');
 		$new_stuff = [
 			'u'=>$this->getID(),
-			'd'=>$stuff['description'],
+			'd'=>htmlspecialchars($stuff['description']),
 			'a'=> $want_adult
 		];
 		var_dump($new_stuff);
