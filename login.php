@@ -9,7 +9,7 @@ if($_POST && isset($_POST['login'])){
 		$db = new Connection();
 		$result = $db->getFromEmail($_POST['email']);
 		if($result){
-			if($result['password'] === md5($_POST['password'].'p€@NÜt-_-BüTt€R')){
+			if($result['password'] === hash('sha256',$_POST['password'].'p€@NÜt-_-BüTt€R')){
 				$_SESSION['user'] = new User($result);
 				$_SESSION['id'] = $result['id'];
 			

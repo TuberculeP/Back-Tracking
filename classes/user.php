@@ -53,7 +53,7 @@ class User
 	
 	public function setPassword($string): void
 	{
-		$this->password = md5($string . "p€@NÜt-_-BüTt€R");
+		$this->password = hash('sha256',$string . "p€@NÜt-_-BüTt€R");
 	}
 	
 	public function register(): bool
