@@ -1,0 +1,256 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+header{
+  background-color: white;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.24);
+  display: flex;
+  gap: 36px;
+  position: relative;
+  justify-content: left;
+  align-items: center;
+  padding: 0 24px;
+  margin-bottom: 24px;
+  .profile{
+    position: absolute;
+    right: 24px;
+  }
+  .logo{
+    display: flex;
+    align-items: center;
+    img{
+      height: 80px;
+      margin: 10px 0;
+    }
+  }
+}
+
+div.search{
+  >div{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    }
+
+    form{
+      position: relative;
+      input{
+        padding: 10px 20px;
+        border: none;
+        border-radius: 24px;
+        box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.24);
+
+      }
+      button{
+        padding: 10px;
+        border: none;
+        background-color: #0ea10e;
+        color: white;
+        border-radius: 24px;
+        cursor: pointer;
+      }
+      div.search-modal{
+        position: absolute;
+        background-color: white;
+        &.hidden{
+          display: none;
+        }
+        ul{
+          list-style: none;
+        }
+      }
+    }
+  }
+
+a.button {
+  display: block;
+  width: fit-content;
+  padding: 10px 20px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.24);
+  border-radius: 24px;
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+
+  &:hover {
+    transform: translateY(2px);
+  }
+}
+
+div.sort{
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+
+section.result{
+  display: flex;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  border-radius: 0 24px 24px 0;
+  img{
+    height: 250px;
+  }
+  div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    p{
+      bottom: 0;
+      text-align: justify;
+    }
+  }
+}
+
+a.result{
+  display: block;
+  width: 550px;
+  margin: 24px auto;
+  text-decoration: none;
+  color: inherit;
+  appearance: none;
+  transition: transform 0.2s;
+  &:hover{
+    transform: scale(1.01);
+  }
+}
+
+h1{
+  text-align: center;
+}
+
+div.movie{
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  border-radius: 0 24px 24px 0;
+
+  img{
+    height: 500px;
+  }
+  section{
+    padding: 24px;
+    >*{
+      margin-bottom: 24px;
+    }
+    p{
+      max-width: 600px;
+      text-align: justify;
+    }
+  }
+}
+
+div.modal-container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.15);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  .modal{
+    background-color: white;
+    padding: 3em;
+    border-radius: 32px;
+    >div{
+      margin: 10px;
+    }
+    button{
+      display: block;
+      margin: auto;
+    }
+  }
+}
+
+main.profile{
+  h2{
+    margin: 20px;
+  }
+  div.album-container{
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    a{
+      transition: transform 0.2s;
+      text-decoration: none;
+      color: black;
+      &:hover{
+        transform: scale(1.05);
+      }
+    }
+    section{
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.24);
+      overflow: clip;
+      width: 300px;
+      img{
+        width: 100%;
+        aspect-ratio: 2/1;
+        object-fit: cover;
+      }
+      div{
+        position: relative;
+        height: 150px;
+        padding: 20px;
+      }
+    }
+  }
+  .description{
+    appearance: none;
+    width: 400px;
+    margin: 10px auto;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    h3{
+      text-align: center;
+    }
+    p{
+      &::before, &::after{
+        content: " \" ";
+      }
+    }
+  }
+  .preferences{
+    width: fit-content;
+    margin: 20px auto;
+    border: 1px solid black;
+    padding: 10px;
+    label{
+      display: block;
+    }
+    button{
+      display: block;
+    }
+  }
+}
+main.invite{
+  p{
+    width: fit-content;
+    margin: 20px auto;
+    background-color: antiquewhite;
+    padding: 5px;
+  }
+  button{
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+  }
+}
+button#more_movies{
+  padding: 10px;
+  display: block;
+  margin: 20px auto;
+}
+
+.seen_hidden, .adult_hidden{
+  display: none;
+}
