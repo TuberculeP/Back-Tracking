@@ -2,7 +2,7 @@
 $back = true;
 $page_title = "Invitation";
 require_once '../template/header.php';
-$key = md5(date("Y-m-d H:i:s"));
+$key = hash('sha256', date("Y-m-d H:i:s"));
 if (($_POST && isset($_POST['album'])) || isset($_GET['test'])) {
     if(sizeof($_SESSION['user']->link_getAll($_POST['album']))===0){
 		if(isset($_POST['album'])){
@@ -16,7 +16,7 @@ if (($_POST && isset($_POST['album'])) || isset($_GET['test'])) {
 <main class="invite">
 	<h1>Le lien a été créé</h1>
     <h2></h2>
-    <p>http://devlab.test/invite/?key=<?=$key?></p>
+    <p>http://devlab.test/invite/?key=<?=htmlspecialchars($key)?></p>
     <button class="copy">Copier</button>
     <script>
         let copy = document.querySelector('main.invite p')

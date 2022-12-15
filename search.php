@@ -61,9 +61,9 @@ if($_GET){
         <?php if(isset($_GET['genre']) || isset($_GET['query'])):?>
         <div class="sort">
             <h3>Trier par :</h3>
-            <a href='<?=$link?>&sort=title'>Nom</a>
-            <a href='<?=$link?>&sort=vote_average'>Note</a>
-            <a href='<?=$link?>&sort=popularity'>Popularité</a>
+            <a href='<?=htmlspecialchars($link)?>&sort=title'>Nom</a>
+            <a href='<?=htmlspecialchars($link)?>&sort=vote_average'>Note</a>
+            <a href='<?=htmlspecialchars($link)?>&sort=popularity'>Popularité</a>
             <span>
                 <label for="viewed">Masquer les films visionnés</label>
                 <input type="checkbox" id="viewed">
@@ -172,7 +172,7 @@ if($_GET){
                 document.querySelector('#more_movies').remove();
             }
             const container = document.querySelector('.movie-container');
-            fetch("<?=$url_name?>&page="+page).then(response => response.json()).then(data =>{
+            fetch("<?=htmlspecialchars($url_name)?>&page="+page).then(response => response.json()).then(data =>{
                 let movies = data['results'];
                 let amount = data['total_results'];
                 if(data['total_results'] >=10000){
@@ -185,7 +185,7 @@ if($_GET){
 				if(isset($_GET['query'])):
 				if(isset($_GET['sort'])):
 				?>
-                let sort_param = '<?=$_GET['sort']?>';
+                let sort_param = '<?=htmlspecialchars($_GET['sort'])?>';
                 if(movies[0].hasOwnProperty(sort_param)){
                     movies.sort((a, b) => (a[sort_param] < b[sort_param])? 1: -1)
                     if(sort_param === "title") movies.reverse();

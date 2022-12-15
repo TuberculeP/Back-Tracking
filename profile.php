@@ -25,11 +25,11 @@ $stuff = $user->getStuff();
 ?>
 	
 	<main class="profile">
-		<h1><?=$user->pseudo?></h1>
+		<h1><?=htmlspecialchars($user->pseudo)?></h1>
         
         <div class="description">
-            <h3><?=$user->first_name." ".$user->last_name?></h3>
-            <p><?=$stuff['description']??""?></p>
+            <h3><?=htmlspecialchars($user->first_name)." ".htmlspecialchars($user->last_name)?></h3>
+            <p><?=isset($stuff['description'])?htmlspecialchars($stuff['description']):''?></p>
         </div>
         
         <?php if($_SESSION['id'] === (int)$_GET['id']):?>
@@ -41,7 +41,9 @@ $stuff = $user->getStuff();
             <h4>Préférences :</h4>
             <hr>
             <label for="desc">Description</label>
-            <textarea name="description" id="desc"><?=$stuff['description']??""?></textarea>
+            <textarea name="description" id="desc">
+                <?=isset($stuff['description'])?htmlspecialchars($stuff['description']):''?>
+            </textarea>
             <label for="want_adult">Voir les films +18 ans</label>
             <input type="checkbox" name="want_adult" id="want_adult"
                 <?=(isset($stuff['want_adult']) && $stuff['want_adult']===1)?'checked':''?>>
@@ -55,17 +57,17 @@ $stuff = $user->getStuff();
             <div class="album-container">
 				<?php foreach ($albums as $album):
                     if($album->is_public || $_SESSION['user']->isContributor($album->getStuff())):?>
-                    <a href="album.php?id=<?=$album->id?>">
+                    <a href="album.php?id=<?=htmlspecialchars($album->id)?>">
                         <section>
                             <img src='<?=$album->getThumbnail()!='https://image.tmdb.org/t/p/w500'
                                 ?$album->getThumbnail()
                                 :'https://cdn.pixabay.com/photo/2012/04/15/18/57/dvd-34919_960_720.png'?>'
-                                 alt='<?=$album->name?>'>
+                                 alt='<?=htmlspecialchars($album->name)?>'>
                             <div>
-                                <h3><?=$album->name?></h3>
+                                <h3><?=htmlspecialchars($album->name)?></h3>
                                 <ul>
-                                    <li>Vues : <?=$album->view?></li>
-                                    <li>Likes : <?=$album->like?></li>
+                                    <li>Vues : <?=htmlspecialchars($album->view)?></li>
+                                    <li>Likes : <?=htmlspecialchars($album->like)?></li>
                                 </ul>
 
                             </div>
@@ -80,17 +82,17 @@ $stuff = $user->getStuff();
 				<?php $albums = Album::getLiked($_SESSION['user']->getID());
                 foreach ($albums as $album):
 					if($album->is_public || $_SESSION['user']->isContributor($album->getStuff())):?>
-                        <a href="album.php?id=<?=$album->id?>">
+                        <a href="album.php?id=<?=htmlspecialchars($album->id)?>">
                             <section>
                                 <img src='<?=$album->getThumbnail()!='https://image.tmdb.org/t/p/w500'
 									?$album->getThumbnail()
 									:'https://cdn.pixabay.com/photo/2012/04/15/18/57/dvd-34919_960_720.png'?>'
-                                     alt='<?=$album->name?>'>
+                                     alt='<?=htmlspecialchars($album->name)?>'>
                                 <div>
-                                    <h3><?=$album->name?></h3>
+                                    <h3><?=htmlspecialchars($album->name)?></h3>
                                     <ul>
-                                        <li>Vues : <?=$album->view?></li>
-                                        <li>Likes : <?=$album->like?></li>
+                                        <li>Vues : <?=htmlspecialchars($album->view)?></li>
+                                        <li>Likes : <?=htmlspecialchars($album->like)?></li>
                                     </ul>
 
                                 </div>

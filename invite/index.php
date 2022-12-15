@@ -29,7 +29,7 @@ if($link === false){
 		
 		?>
         
-        <a href="../album.php?id=<?=$link['album_id']?>">Voir l'album</a>
+        <a href="../album.php?id=<?=htmlspecialchars($link['album_id'])?>">Voir l'album</a>
         <?php
 	}
 }

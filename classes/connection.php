@@ -32,5 +32,4 @@ class Connection
 			return $result[0];
 		}
 	}
-	
 }

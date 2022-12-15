@@ -9,7 +9,7 @@ if($_POST && isset($_POST['login'])){
 		$db = new Connection();
 		$result = $db->getFromEmail($_POST['email']);
 		if($result){
-			if($result['password'] === md5($_POST['password'].'p€@NÜt-_-BüTt€R')){
+			if($result['password'] === hash('sha256',$_POST['password'].'p€@NÜt-_-BüTt€R')){
 				$_SESSION['user'] = new User($result);
 				$_SESSION['id'] = $result['id'];
 			
@@ -30,7 +30,7 @@ if(isset($_SESSION["user"])){
         <h2>Login</h2>
         <input type="email" name="email" placeholder="E-Mail"
 			<?php if($_GET && isset($_GET['email'])){
-				echo ' value="'.$_GET['email'].'"';
+				echo ' value="'.htmlspecialchars($_GET['email']).'"';
 			}?>>
         <input type="password" name="password" placeholder="password">
         <input type="submit" name="login" value="Login">
