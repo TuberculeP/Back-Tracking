@@ -57,7 +57,7 @@ if($_POST && isset($_POST['register'])){
         </div>
 		<?php if($_GET && isset($_GET['error'])){
 			echo '<p class="error">Erreur : ';
-			echo match ($_GET['error']) {
+			echo match (htmlspecialchars($_GET['error'])) {
 				'empty' => 'Le formulaire comporte des sections non-remplies.',
 				'password' => 'Les mots de passe ne correspondent pas.',
 				'emailTaken' => "L'email est déjà utilisé. <a href='./login.php'>Déjà inscrit ?</a>",

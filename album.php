@@ -29,13 +29,13 @@ if($_GET && isset($_GET['id'])){
 		}
 		if($album->is_public || $_SESSION['user']->isContributor($stuff)){
             $album->addView();
-            $album->view
+            $album->view++;
     
 ?>
 	
 	<main class="profile">
 		
-		<h1><?=$album->name?></h1>
+		<h1><?=htmlspecialchars($album->name)?></h1>
         <form method="post">
             <input type="hidden" name="delete_album">
             <button type="submit">Supprimer l'album</button>
@@ -43,27 +43,31 @@ if($_GET && isset($_GET['id'])){
         <h2>Par : <?php
             foreach ($stuff['contributor'] as $contributor){
             ?>
-                <a href="profile.php?id=<?=$contributor['id']?>"><?=$contributor['pseudo']?></a>
+                <a href="profile.php?id=<?=htmlspecialchars($contributor['id'])?>">
+                    <?=htmlspecialchars($contributor['pseudo'])?>
+                </a>
                 <?php
             }?></h2>
         
 		
         <h2>Infos :</h2>
         <ul>
-            <li>Vues : <?=$album->view?></li>
-            <li>Likes : <?=$album->like?></li>
+            <li>Vues : <?=htmlspecialchars($album->view)?></li>
+            <li>Likes : <?=htmlspecialchars($album->like)?></li>
         </ul>
 
         <?php if($album->is_public):?>
-                <form action="./album.php?id=<?=$album->id?>" method="post">
+                <form action="./album.php?id=<?=htmlspecialchars($album->id)?>" method="post">
                     <input type="hidden" name="liked" value="<?=$_SESSION['user']->hasLiked($album->id)?1:0?>">
-                    <button type="submit"><?=$_SESSION['user']->hasLiked($album->id)?'Supprimer des likes':'Liker'?></button>
+                    <button type="submit">
+                        <?=$_SESSION['user']->hasLiked($album->id)?'Supprimer des likes':'Liker'?>
+                    </button>
                 </form>
         <?php endif;?>
         
         <h2>Inviter à contribuer :</h2>
         <form action="./invite/create.php" method="post">
-            <input type="hidden" name="album" value="<?=$_GET['id']?>">
+            <input type="hidden" name="album" value="<?=htmlspecialchars($_GET['id'])?>">
             <button type="submit">Générer un lien</button>
         </form>
         
@@ -100,7 +104,7 @@ if($_GET && isset($_GET['id'])){
                         <p><?=$result['overview']?></p>
                         <?php if($_SESSION['user']->isContributor($stuff)):?>
                             <form action="./add_movie.php?id=<?=$result['id']?>" method="post">
-                                <input type="hidden" name="<?=$_GET['id']?>" value="delete">
+                                <input type="hidden" name="<?=htmlspecialchars($_GET['id'])?>" value="delete">
                                 <button type="submit">Supprimer</button>
                             </form>
                         <?php endif?>
@@ -121,7 +125,7 @@ if($_GET && isset($_GET['id'])){
         <main>
             <h1>Cet album est privé</h1>
             <p><i>Sa consultation est réservée aux contributeurs</i></p>
-            <a href="./profile.php?id=<?=$stuff['contributor'][0]['id']?>">Retour</a>
+            <a href="./profile.php?id=<?=htmlspecialchars($stuff['contributor'][0]['id'])?>">Retour</a>
         </main>
         
 <?php

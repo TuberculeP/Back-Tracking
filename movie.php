@@ -78,7 +78,7 @@ if($_POST){
                     </button>
                 </form>
                 <form method="post">
-                    <input type="hidden" name="want_movie" value="<?=$_GET['id']?>">
+                    <input type="hidden" name="want_movie" value="<?=htmlspecialchars($_GET['id'])?>">
                     <button type="submit">
 						<?php
 						echo in_array($_GET['id'], $_SESSION["user"]->getWanted())?'Supprimer de':'Ajouter à'
@@ -89,7 +89,7 @@ if($_POST){
                 <p><?=$movie['id']?></p>
                 
                 <div class="modal-container">
-                    <form class="modal" method="post" action="add_movie.php?id=<?=$_GET['id']?>">
+                    <form class="modal" method="post" action="add_movie.php?id=<?=htmlspecialchars($_GET['id'])?>">
                         <h4>Ajouter à une liste existante</h4>
                         <?php
                         $db = new Connection();

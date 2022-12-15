@@ -30,7 +30,7 @@ if(isset($_SESSION["user"])){
         <h2>Login</h2>
         <input type="email" name="email" placeholder="E-Mail"
 			<?php if($_GET && isset($_GET['email'])){
-				echo ' value="'.$_GET['email'].'"';
+				echo ' value="'.htmlspecialchars($_GET['email']).'"';
 			}?>>
         <input type="password" name="password" placeholder="password">
         <input type="submit" name="login" value="Login">
