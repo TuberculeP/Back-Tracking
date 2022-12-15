@@ -172,7 +172,7 @@ if($_GET){
                 document.querySelector('#more_movies').remove();
             }
             const container = document.querySelector('.movie-container');
-            fetch("<?=htmlspecialchars($url_name)?>&page="+page).then(response => response.json()).then(data =>{
+            fetch("<?=$url_name?>&page="+page).then(response => response.json()).then(data =>{
                 let movies = data['results'];
                 let amount = data['total_results'];
                 if(data['total_results'] >=10000){
