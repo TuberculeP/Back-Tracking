@@ -196,12 +196,12 @@ class User
 	public function updateStuff($stuff): bool
 	{
 		$db = new Connection();
-		$want_adult = $stuff['want_adult']??0;
-		$stuff['want_adult'] = (int)($stuff['want_adult'] === 'on');
+		$stuff['want_adult'] = (int)($stuff['want_adult'] === 'on' || $stuff['want_adult'] === true);
+		var_dump($stuff['want_adult']);
 		$new_stuff = [
 			'u'=>$this->getID(),
 			'd'=>htmlspecialchars($stuff['description']),
-			'a'=> $want_adult
+			'a'=> $stuff['want_adult']
 		];
 		var_dump($new_stuff);
 		
@@ -211,7 +211,7 @@ class User
 		if(sizeof($verif->fetchAll())===0){
 			$query = $db->PDO->prepare(
 				'INSERT INTO profile(user_id, description, want_adult) VALUES (:u,:d,:a)');
-			return $query->execute();
+			return $query->execute($new_stuff);
 		}else{
 			$query = $db->PDO->prepare('UPDATE profile
 		SET description = :description, want_adult = :want_adult WHERE user_id='.$this->getID());

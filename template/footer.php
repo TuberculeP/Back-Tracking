@@ -1,3 +1,4 @@
+<script src="/router.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     const input = document.querySelector('input#search');
