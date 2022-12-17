@@ -1,4 +1,5 @@
 <?php
+require_once 'connection.php';
 
 class User
 {
@@ -21,7 +22,6 @@ class User
 	
 	public function getID()
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$request = $db->PDO->prepare('SELECT id FROM user WHERE email=:email');
 		$request->execute(['email' => $this->email]);
@@ -30,7 +30,6 @@ class User
 	
 	static function find($id): User|bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$request = $db->PDO->prepare('SELECT * FROM user WHERE id=:id');
 		$request->execute(['id' => $id]);
@@ -39,7 +38,6 @@ class User
 	
 	static function search($query): bool|array
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$request = $db->PDO->prepare("SELECT pseudo, id FROM user WHERE pseudo LIKE '".$query."%'");
 		$request->execute();
@@ -58,7 +56,6 @@ class User
 	
 	public function register(): bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$request = $db->PDO->prepare('INSERT INTO user
 			(first_name, last_name, age, pseudo, email, password)
@@ -76,7 +73,6 @@ class User
 	
 	public function alreadyEmail(): bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$request = $db->PDO->prepare('SELECT * FROM user WHERE email=:email');
 		$request->execute(['email' => $this->email]);
@@ -85,7 +81,6 @@ class User
 	
 	public function alreadyPseudo(): bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$request = $db->PDO->prepare('SELECT * FROM user WHERE pseudo=:pseudo');
 		$request->execute(['pseudo' => $this->pseudo]);
@@ -94,7 +89,6 @@ class User
 	
 	public function createAlbum($name, $is_public): Album|bool
 	{
-		require_once 'connection.php';
 		require_once './classes/album.php';
 		$db = new Connection();
 		
@@ -116,7 +110,6 @@ class User
 	
 	public function contribute($album_id): bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$request = $db->PDO->prepare('INSERT INTO album_by (user_id, album_id) VALUES (:u, :a)');
 		return $request->execute([
@@ -127,7 +120,6 @@ class User
 	
 	public function link_generate($album_id, $key): bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$request = $db->PDO->prepare('INSERT INTO
     										invitation(`key`, album_id, user_id,created_at)
@@ -141,7 +133,6 @@ class User
 	
 	public function link_clear(): bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$request = $db->PDO->prepare('DELETE FROM invitation WHERE NOW() - 24*3600 > created_at -1');
 		return $request->execute();
@@ -149,7 +140,6 @@ class User
 	
 	public function link_get($key): array|bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		//virer les liens expirés
 		$this->link_clear();
@@ -168,7 +158,6 @@ class User
 	
 	public function link_getAll($album_id): bool|array
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		//virer les liens expirés
 		$this->link_clear();
@@ -197,7 +186,6 @@ class User
 	
 	public function getStuff(): array
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$query = $db->PDO->prepare('SELECT * FROM profile WHERE user_id='.$this->getID());
 		$query->execute();
@@ -207,7 +195,6 @@ class User
 	
 	public function updateStuff($stuff): bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$want_adult = $stuff['want_adult']??0;
 		$stuff['want_adult'] = (int)($stuff['want_adult'] === 'on');
@@ -237,7 +224,6 @@ class User
 	
 	public function rember($movie_id, $table): bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$query = $db->PDO->prepare('INSERT INTO '.$table.'(user_id, movie_id) VALUES (:u, :m)');
 		return $query->execute([
@@ -248,7 +234,6 @@ class User
 	
 	public function forgor($movie_id, $table): bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$query = $db->PDO->prepare('DELETE FROM '.$table.' WHERE user_id = :u AND movie_id = :m');
 		return $query->execute([
@@ -282,7 +267,6 @@ class User
 	}
 	
 	public function hasLiked($album_id){
-		require_once 'connection.php';
 		$db = new Connection();
 		$request = $db->PDO->prepare('SELECT * FROM like_by WHERE album_id = :a AND user_id = :u');
 		$request->execute(['a'=>$album_id, 'u'=>$this->getID()]);
