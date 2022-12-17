@@ -15,19 +15,6 @@ class Connection
 			);
 	}
 	
-	public static function getPDO(): PDO
-	{
-		static $database = null;
-		if ($database === null) {
-			$database = new PDO(
-				'mysql:dbname=tartiflette;host=127.0.0.1',
-				'root',
-				'root'
-			);
-		}
-		return $database;
-	}
-	
 	public function getAllUsers(): bool|array
 	{
 		$request = $this->PDO->prepare('SELECT * FROM user');
