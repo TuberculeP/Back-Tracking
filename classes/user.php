@@ -64,7 +64,7 @@ class User
 			(first_name, last_name, age, pseudo, email, password)
     		VALUES
     		(:first_name, :last_name, :age, :pseudo, :email, :password)');
-		$result = $request->execute([
+		return $request->execute([
 			'first_name' => htmlspecialchars($this->first_name),
 			'last_name' => htmlspecialchars($this->last_name),
 			'age' => $this->age,

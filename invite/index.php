@@ -16,17 +16,15 @@ if($link === false){
 		echo '<h2>Tu peux pas t\'inviter toi-même incapable</h2>';
 	}else{
         
-        $db = new Connection();
-        $album_spec = $db->getAlbumSpec($link['album_id']);
+        $album = Album::find($link['album_id']);
+        $stuff = $album->getStuff();
         
-        if($_SESSION['user']->isContributor($album_spec)){
-			echo '<h2>Tu contribues déjà à cet album</h2>';
+        if($_SESSION['user']->isContributor($stuff)){
+            echo '<h2>Tu es déjà contributeur de cet album</h2>';
         }else{
             echo '<h1>Vous avez été invité en temps que contributeur</h1>';
 			$_SESSION['user']->contribute($link['album_id']);
         }
-	
-		
 		?>
         
         <a href="../album.php?id=<?=htmlspecialchars($link['album_id'])?>">Voir l'album</a>

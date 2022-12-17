@@ -11,7 +11,21 @@ class Connection
 		$this->PDO = new PDO(
 			'mysql:dbname=tartiflette;host=127.0.0.1',
 			'root',
-			'root');
+			'root'
+			);
+	}
+	
+	public static function getPDO(): PDO
+	{
+		static $database = null;
+		if ($database === null) {
+			$database = new PDO(
+				'mysql:dbname=tartiflette;host=127.0.0.1',
+				'root',
+				'root'
+			);
+		}
+		return $database;
 	}
 	
 	public function getAllUsers(): bool|array
