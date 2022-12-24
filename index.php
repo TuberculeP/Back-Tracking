@@ -47,13 +47,23 @@ function printmovie($list){
         <h2>Votre liste de souhaits :</h2>
         <div class="wishes">
 			<?php
-			printmovie($_SESSION['user']->getWanted());
+			$wanted = $_SESSION['user']->getWanted();
+            if(empty($wanted)){
+                echo '<p>Vous n\'avez pas encore de films dans votre liste de souhaits</p>';
+            }else{
+                printmovie($wanted);
+            }
 			?>
         </div>
         <h2>Vos films déjà vu :</h2>
         <div class="seen">
 			<?php
-			printmovie($_SESSION['user']->getSeen());
+			$seen = $_SESSION['user']->getSeen();
+            if(empty($seen)){
+                echo '<p>Vous n\'avez pas encore de films visionnés</p>';
+            }else{
+                printmovie($seen);
+            }
 			?>
         </div>
     </main>
