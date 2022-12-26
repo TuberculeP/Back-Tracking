@@ -2,15 +2,13 @@
 
 > Réaliser un site sur The Movie DB
 
-### Fonctionnalités attendues :
+### Trucs qui restent à faire :
 
-- Sécuriser tous les formulaires
-- Veille sur les injections SQL
+- Mettre un message de "rien" quand ya rien dans les albums default
 
 ### Imposé :
 
 - Tailwind (avec responsive évidemment)
-- Sécurisation
 
 ### DONE
 
@@ -29,8 +27,10 @@
 - Se connecter / S'inscrire
 - Consulter des films par résultat de recherche
 - Consulter un film
-- PHP Orienté Objet DONE
-- Axios DONE
+- PHP Orienté Objet
+- Axios 
+- Sécuriser tous les formulaires
+- Veille sur les injections SQL
 
 ### Bonus pour moi lol
 
