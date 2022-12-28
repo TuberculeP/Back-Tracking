@@ -15,8 +15,7 @@
                 divSearch.classList.add('hidden');
             }else{
                 divSearch.classList.remove('hidden');
-                axios.get('https://api.themoviedb.org/3/search/movie?query='
-                    + this.value + '&api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr')
+                axios.get('./api/tmdb?q=search/movie?query='+this.value)
                     .then(response => {
                         p.innerHTML = "Films : " + response.data['total_results'];
                         if(response.data['total_results'] === 10000) {
