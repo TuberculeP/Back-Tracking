@@ -92,7 +92,7 @@ if($_POST){
             <button class="bg-white text-bleu border-2 border-bleu px-7 py-2 rounded-lg" id="album">Ajouter à un album</button>
             <!-- <p><?=$movie['id']?></p> -->
             
-            <div class=" flex flex-col modal-container absolute bg-white bottom-10 text-bleu border-2 border-bleu rounded-lg p-1 px-2 justify-between w-6/12">
+            <div class=" hidden flex flex-col modal-container absolute bg-white bottom-10 text-bleu border-2 border-bleu rounded-lg p-1 px-2 justify-between w-6/12">
 
                 <ion-icon class="close z-50 plus absolute w-6 h-6 fill-black top-2 right-2 bg-gris rounded-full p-1 bg-opacity-50" name="close-outline"></ion-icon>
 
