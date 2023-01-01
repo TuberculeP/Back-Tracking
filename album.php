@@ -33,47 +33,53 @@ if($_GET && isset($_GET['id'])){
     
 ?>
 	
-	<main class="profile">
+	<main class=" bg-white w-full h-full py-8 profile">
+	   <div class="w-11/12 mx-auto h-full">
 		
-		<h1><?=htmlspecialchars($album->name)?></h1>
-        <form method="post">
+		<h1 class=" uppercase font-bold mt-8 mb-4 lg:mt-0 text-2xl lg:text-3xl"><?=htmlspecialchars($album->name)?></h1>
+        <form method="post" class="lg:w-2/12 w-1/2 mb-4">
             <input type="hidden" name="delete_album">
-            <button type="submit">Supprimer l'album</button>
+            <button class="session inline-flex w-full justify-center rounded-md border-2 border-bleu bg-white text-bleu px-4 py-2 text-sm font-medium " type="submit">Supprimer l'album</button>
         </form>
-        <h2>Par : <?php
-            foreach ($stuff['contributor'] as $contributor){
-            ?>
-                <a href="profile.php?id=<?=htmlspecialchars($contributor['id'])?>">
-                    <?=htmlspecialchars($contributor['pseudo'])?>
-                </a>
-                <?php
-            }?></h2>
-        
-		
-        <h2>Infos :</h2>
-        <ul>
-            <li>Vues : <?=htmlspecialchars($album->view)?></li>
-            <li>Likes : <?=htmlspecialchars($album->like)?></li>
-        </ul>
+        <h2 >Par : <?php
+         foreach ($stuff['contributor'] as $contributor){
+         ?>
+               <a class="text-bleu" href="profile.php?id=<?=htmlspecialchars($contributor['id'])?>">
+                  <?=htmlspecialchars($contributor['pseudo'])?>
+               </a>
+               <?php
+         }?></h2>
+      
+         <h2>Infos :</h2>
+         <div class="flex flex-row lg:w-3/12 w-auto justify-between items-center">
+            <ul class="flex flex-row w-5/12 justify-between">
+               <li>Vues : <?=htmlspecialchars($album->view)?></li>
+               <li>Likes : <?=htmlspecialchars($album->like)?></li>
+            </ul>
+         </div>
 
-        <?php if($album->is_public):?>
-                <form action="./album.php?id=<?=htmlspecialchars($album->id)?>" method="post">
-                    <input type="hidden" name="liked" value="<?=$_SESSION['user']->hasLiked($album->id)?1:0?>">
-                    <button type="submit">
+         <?php if($album->is_public):?>
+               <form class="lg:w-2/12 w-1/2 my-4" action="./album.php?id=<?=htmlspecialchars($album->id)?>" method="post">
+                  <input type="hidden" name="liked" value="<?=$_SESSION['user']->hasLiked($album->id)?1:0?>">
+                  <button class="session inline-flex w-full justify-center rounded-md bg-bleu text-white px-4 py-2 text-sm font-medium " type="submit">
                         <?=$_SESSION['user']->hasLiked($album->id)?'Supprimer des likes':'Liker'?>
-                    </button>
-                </form>
-        <?php endif;?>
+                  </button>
+               </form>
+            <?php endif;?>
         
-        <h2>Inviter à contribuer :</h2>
-        <form action="./invite/create.php" method="post">
-            <input type="hidden" name="album" value="<?=htmlspecialchars($_GET['id'])?>">
-            <button type="submit">Générer un lien</button>
-        </form>
+         <div class="flex flex-row mb-4">
+            <h2>Inviter à contribuer :</h2>
+            <form class="ml-4" action="./invite/create.php" method="post">
+                  <input type="hidden" name="album" value="<?=htmlspecialchars($_GET['id'])?>">
+                  <button class=" hover:underline underline-offset-4" type="submit">Générer un lien</button>
+            </form>
+         </div>
         
-        <h1>Film(s) : </h1>
+        <h1 class="mb-4 uppercase font-bold text-2xl lg:text-xl" >Film(s) : </h1>
+
+         <div class="wishes flex snap-x snap-mandatory h-max w-full mx:auto overflow-scroll overflow-y-hidden justify-between  mb-16">
         
-        <div>
+        <div class="mr-8 snap-start shrink-0 flex flex-row text-center my-6">
             <?php
             foreach ($stuff['movie'] as $movie_id){
 				$url_name = 'https://api.themoviedb.org/3/movie/' . $movie_id
@@ -84,24 +90,27 @@ if($_GET && isset($_GET['id'])){
 				$result_url = curl_exec($ch_session);
 				$result = json_decode($result_url, true);
             ?>
-            <a href="./movie.php?id=<?=$result['id']?>" class="result">
-                <section class="result">
-                    <img src="https://image.tmdb.org/t/p/w500<?=$result['poster_path']?>"
+            <a class="result w-[35vh] shadow-lg rounded-lg bg-white mr-8" href="./movie.php?id=<?=$result['id']?>" class="result">
+                <section class="result h-9/12 relative w-full" class="result">
+                     <ion-icon class="z-50 plus absolute w-6 h-6 fill-black top-2 right-2 bg-gris rounded-full p-1 bg-opacity-50" name="ellipsis-horizontal"></ion-icon>
+                    <img class="rounded-t-lg h-[50vh] border-b border-gris w-full" src="https://image.tmdb.org/t/p/w500<?=$result['poster_path']?>"
                          alt="poster_for <?=$result['id']?>">
                     <div>
-                        <h2>
-							<?php
-							if($result['original_language'] === 'fr'){
-								echo $result['original_title'];
-							}else{
-								echo $result['title'];
-							}
-							echo ' ('.explode('-',$result['release_date'])[0].')'
-							?>
+                        <h2 class="my-4 font-bold uppercase text-black text-base">
+                           <?php
+                           if($result['original_language'] === 'fr'){
+                              echo $result['original_title'];
+                           }else{
+                              echo $result['title'];
+                           }
+                           echo ' ('.explode('-',$result['release_date'])[0].')'
+                           ?>
                         </h2>
-                        <p>Indice de Popularité : <?=$result['popularity']?></p>
-                        <p>Note : <?=$result['vote_average']?>/10</p>
-                        <p><?=$result['overview']?></p>
+                        <div class="hidden text-left">
+                           <p>Indice de Popularité : <?=$result['popularity']?></p>
+                           <p>Note : <?=$result['vote_average']?>/10</p>
+                           <p><?=$result['overview']?></p>
+                        </div>
                         <?php if($_SESSION['user']->isContributor($stuff)):?>
                             <form action="./add_movie.php?id=<?=$result['id']?>" method="post">
                                 <input type="hidden" name="<?=htmlspecialchars($_GET['id'])?>" value="delete">
@@ -115,7 +124,8 @@ if($_GET && isset($_GET['id'])){
 			}
             ?>
         </div>
-  
+        </div>
+      </div>
 	</main>
 
 <?php
@@ -139,3 +149,5 @@ if($_GET && isset($_GET['id'])){
 
 require_once './template/footer.php';
 ?>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

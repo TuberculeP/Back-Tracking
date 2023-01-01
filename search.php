@@ -41,7 +41,8 @@ if($_GET){
     }
 }
 ?>
-<main>
+<main class=" bg-white w-full h-full pt-8">
+  <div class="w-11/12 mx-auto h-full">
     <?php
     if($_GET){
         if(isset($_GET['query'])){
@@ -50,7 +51,7 @@ if($_GET){
             <?php
         }elseif (isset($_GET['discover'])){
             ?>
-            <h1>Les films les plus <?php echo $_GET['discover']==='trending'?  'tendances': 'récents'; ?>
+            <h1 class="titre uppercase text-rouge my-8 pt-8 font-bold text-2xl">Les films les plus <?php echo $_GET['discover']==='trending'?  'tendances': 'récents'; ?>
             </h1>
             <?php } ?>
             
@@ -106,10 +107,13 @@ if($_GET){
         </div>
         <?php endif;?>
         
-            <div class="movie-container"></div>
+        <div class="movie-container grid grid-cols-2 lg:grid-cols-6 gap-4">
+              </div>
+            </div>
 				<?php
     }
     ?>
+  </div>
 </main>
     <script>
         function maskMaskable(){
@@ -194,14 +198,17 @@ if($_GET){
                 movies.forEach(movie => {
                     let div = document.createElement('div');
                     div.innerHTML = `<a href="./movie.php?id=`+movie['id']+` " class="result">
-                <section class="result">
-                    <img src="./assets/img/blank_movie.jpeg"
+                <section class="z-10 relative result lg:h-[450px] h-[380px] rounded-xl shadow-lg mb-6">
+                  <ion-icon class="z-50 plus absolute w-6 h-6 fill-black top-2 right-2 bg-gris rounded-full p-1 bg-opacity-50" name="ellipsis-horizontal"></ion-icon>
+                    <img class="rounded-t-lg h-[40vh] border-b border-gris w-full" src="./assets/img/blank_movie.jpeg"
                          alt="no poster for this movie">
                         <div>
-                            <h2></h2>
+                          <h2 class="w-11/12 mx-auto mt-4 font-bold uppercase text-black text-base"></h2>
+                          <div class="desc">
                             <p>Indice de Popularité : `+movie['popularity']+`</p>
                             <p>Note : `+movie['vote_average']+`/10</p>
                             <p>`+movie['overview']+`</p>
+                          </div>
                         </div>
                         <input type="hidden" class="movie_id" value='`+movie['id']+`'>
                         <input type="hidden" class="is_adult" value='`+movie['adult']+`'>
@@ -261,3 +268,5 @@ if($_GET){
 <?php
 require_once './template/footer.php';
 ?>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
