@@ -115,12 +115,55 @@ if($_GET){
     ?>
   </div>
 </main>
+
+<?php if($_GET['query']==="flip"):?>
+    <script>
+        document.body.style.transition = "all 1s";
+        setTimeout(function() {
+            document.body.style.transform = "rotateZ(360deg)";
+        }, 1000)
+    </script>
+<?php endif;?>
+
+<?php if($_GET['query']==="mirror"):?>
+    <script>
+        document.body.style.transition = "all 1s";
+        setTimeout(function() {
+            document.body.style.transform = "rotateY(180deg)";
+        }, 1000)
+    </script>
+<?php endif;?>
+<?php if($_GET['query']==="dance"):?>
+    <style>
+        @keyframes dance {
+            0%{
+                transform: scale(1);
+            }
+            50%{
+                transform: scale(1.05);
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
+    </style>
+    <script>
+        document.body.style.transition = "all 1s";
+        setTimeout(function() {
+            document.querySelectorAll('.result').forEach(function(movie, index){
+                setTimeout(function(){
+                    movie.style.animation = "dance 1s infinite";
+                }, 100*index)
+            })
+        }, 1000)
+    </script>
+<?php endif;?>
+
     <script>
         function maskMaskable(){
              fetch('./api/view?user=<?=$_SESSION['id']?>').then(response => response.json())
                  .then(data => {
                      document.querySelectorAll('.movie-container>div').forEach(movie => {
-                         console.log("Mask Maskable",boules)
                          if(boules === 0){
                              if(movie.querySelector('input.is_adult').value === 'true'){
                                  if(!movie.classList.contains('adult_hidden')){
@@ -173,7 +216,6 @@ if($_GET){
             }
             const container = document.querySelector('.movie-container');
             let url = './api/tmdb?q=<?=$url_name?>&page='+page;
-            console.log(url)
             fetch(url).then(response => response.json()).then(data =>{
                 let movies = data['results'];
                 let amount = data['total_results'];
@@ -218,7 +260,6 @@ if($_GET){
                         div.querySelector('img').src = 'https://image.tmdb.org/t/p/w500'+movie['poster_path']
                         div.querySelector('img').alt = 'poster_for '+movie['id']
                     }
-                    console.log(movie['release_date'])
                     div.querySelector('h2').innerHTML = (movie['original_language']==='fr'
                         ?movie['original_title']
                         :movie['title']);
@@ -268,5 +309,3 @@ if($_GET){
 <?php
 require_once './template/footer.php';
 ?>
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
