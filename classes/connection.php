@@ -11,7 +11,8 @@ class Connection
 		$this->PDO = new PDO(
 			'mysql:dbname=tartiflette;host=127.0.0.1',
 			'root',
-			'root');
+			'root'
+			);
 	}
 	
 	public function getAllUsers(): bool|array

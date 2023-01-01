@@ -6,6 +6,7 @@ if(!isset($_SESSION['user'])){
 }
 $link = "";
 $url_name = "";
+$stuff = $_SESSION['user']->getStuff();
 
 if($_GET){
 	if (isset($_GET['query'])){
@@ -13,19 +14,16 @@ if($_GET){
             header('location:./search.php?discover=trending');
         }
         $link = "./search.php?query=".str_replace(' ', '+',$_GET['query']);
-		$url_name = 'https://api.themoviedb.org/3/search/movie?query='
-            .str_replace(' ', '+',$_GET['query'])
-            .'&api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
+		$url_name = 'search/movie?query='.str_replace(' ', '+',$_GET['query']);
 	}elseif(isset($_GET['discover'])){
 		$link = "./search.php?discover=".$_GET['discover'];
-        $req_type = $_GET['discover']==='trending'
+        $url_name = $_GET['discover']==='trending'
             ?'trending/movie/week?'
-            :'discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte='.date('Y-m-d').'&';
-		$url_name = 'http://api.themoviedb.org/3/' .$req_type .'api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
+            :'discover/movie?sort_by=primary_release_date.desc@primary_release_date.lte='.date('Y-m-d');
     }elseif(isset($_GET['genre'])){
 		$link = "./search.php?genre=".$_GET['genre'];
-		$url_name = 'http://api.themoviedb.org/3/discover/movie?api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr'
-            .'&with_genres='.$_GET['genre'];
+		$url_name = 'discover/movie'
+            .'@with_genres='.$_GET['genre'];
 		if(isset($_GET['sort'])){
 			if($_GET['sort']==='title'){
 				$sort_param = 'original_title.asc';
@@ -35,11 +33,11 @@ if($_GET){
 				$sort_param = 'popularity.desc';
 				
 			}
-			$url_name .= '&sort_by='.$sort_param;
+			$url_name .= '@sort_by='.$sort_param;
         }
     }
-    if($_SESSION['user']->getStuff()['want_adult']===1){
-        $url_name .= '&include_adult=true';
+    if(isset($stuff['want_adult']) && $stuff['want_adult']===1){
+        $url_name .= '@include_adult=true';
     }
 }
 ?>
@@ -69,7 +67,7 @@ if($_GET){
                 <input type="checkbox" id="viewed">
             </span>
             <?php
-			if($_SESSION['user']->getStuff()['want_adult']===1){
+			if(isset($stuff['want_adult']) && $stuff['want_adult']===1){
 				?>
                 <span>
                     <label for="oleole">Type : </label>
@@ -91,7 +89,7 @@ if($_GET){
                 })
 
 				<?php
-				if($_SESSION['user']->getStuff()['want_adult']===1){
+				if(isset($stuff["want_adult"]) && $stuff['want_adult']===1){
 				?>
                 
                 let boules = document.querySelector('#oleole').value;
@@ -110,9 +108,7 @@ if($_GET){
         
             <div class="movie-container"></div>
 				<?php
-    
     }
-    
     ?>
 </main>
     <script>
@@ -120,7 +116,7 @@ if($_GET){
              fetch('./api/view?user=<?=$_SESSION['id']?>').then(response => response.json())
                  .then(data => {
                      document.querySelectorAll('.movie-container>div').forEach(movie => {
-                         
+                         console.log("Mask Maskable",boules)
                          if(boules === 0){
                              if(movie.querySelector('input.is_adult').value === 'true'){
                                  if(!movie.classList.contains('adult_hidden')){
@@ -172,7 +168,9 @@ if($_GET){
                 document.querySelector('#more_movies').remove();
             }
             const container = document.querySelector('.movie-container');
-            fetch("<?=htmlspecialchars($url_name)?>&page="+page).then(response => response.json()).then(data =>{
+            let url = './api/tmdb?q=<?=$url_name?>&page='+page;
+            console.log(url)
+            fetch(url).then(response => response.json()).then(data =>{
                 let movies = data['results'];
                 let amount = data['total_results'];
                 if(data['total_results'] >=10000){
@@ -213,9 +211,13 @@ if($_GET){
                         div.querySelector('img').src = 'https://image.tmdb.org/t/p/w500'+movie['poster_path']
                         div.querySelector('img').alt = 'poster_for '+movie['id']
                     }
+                    console.log(movie['release_date'])
                     div.querySelector('h2').innerHTML = (movie['original_language']==='fr'
                         ?movie['original_title']
-                        :movie['title']) + ' ('+movie['release_date'].split('-')[0]+')'
+                        :movie['title']);
+                    if(movie['release_date']!==undefined){
+                        div.querySelector('h2').innerHTML += ' ('+movie['release_date'].substring(0,4)+')'
+                    }
 
                     container.appendChild(div);
                 })

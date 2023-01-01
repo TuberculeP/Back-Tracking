@@ -1,4 +1,5 @@
 <?php
+require_once 'connection.php';
 
 class Album
 {
@@ -19,9 +20,7 @@ class Album
 	
 	static function find($id): bool|Album
 	{
-		require_once 'connection.php';
 		$db = new Connection();
-		
 		$query = $db->PDO->prepare('SELECT * FROM album WHERE id='.$id);
 		$query->execute();
 		$result = $query->fetchAll();
@@ -34,9 +33,7 @@ class Album
 	
 	static function all($user_id){
 		
-		require_once 'connection.php';
 		$db = new Connection();
-		
 		$request = $db->PDO->prepare(
 			'SELECT * FROM album JOIN album_by ab on album.id = ab.album_id WHERE ab.user_id='.$user_id
 		);
@@ -51,7 +48,6 @@ class Album
 	
 	public function getStuff(): array|bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$request = $db->PDO->prepare(
 			'SELECT album.*, ma.movie_id FROM album
@@ -84,9 +80,7 @@ class Album
 	
 	public function contains($movie_id): bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
-		
 		$request = $db->PDO->prepare(
 			'SELECT * FROM movie_album WHERE album_id=:ai AND movie_id=:mi'
 		);
@@ -106,9 +100,7 @@ class Album
 	
 	private function update($query, $movie_id): bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
-		
 		if($query === 'delete'){
 			$request = $db->PDO->prepare(
 				'DELETE FROM movie_album WHERE movie_id=:m AND album_id=:a'
@@ -151,7 +143,6 @@ class Album
 	
 	static function deleteAll($album_id):bool
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		$query = $db->PDO->prepare('DELETE FROM album WHERE id='.$album_id);
 		return $query->execute();
@@ -159,7 +150,6 @@ class Album
 	
 	public function toggleLike($user_id)
 	{
-		require_once 'connection.php';
 		$db = new Connection();
 		//chercher si l'utilisateur a liké ou pas
 		$request = $db->PDO->prepare('SELECT * FROM like_by WHERE album_id = :a AND user_id = :u');
@@ -181,7 +171,6 @@ class Album
 		
 	}
 	public function addView(){
-		require_once 'connection.php';
 		$db = new Connection();
 		$request = $db->PDO->prepare('UPDATE album SET view = view +1 WHERE id = '.$this->id);
 		$result = $request->execute();
@@ -193,9 +182,7 @@ class Album
 	}
 	
 	static function getLiked($user_id){
-		require_once 'connection.php';
 		$db = new Connection();
-		
 		$request = $db->PDO->prepare(
 			'SELECT * FROM album JOIN like_by ab on album.id = ab.album_id WHERE ab.user_id='.$user_id
 		);
@@ -204,7 +191,6 @@ class Album
 		foreach($request->fetchAll() as $album){
 			$list[] = new self($album);
 		}
-		
 		return $list;
 	}
 }
