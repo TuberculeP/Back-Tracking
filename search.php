@@ -14,19 +14,16 @@ if($_GET){
             header('location:./search.php?discover=trending');
         }
         $link = "./search.php?query=".str_replace(' ', '+',$_GET['query']);
-		$url_name = 'https://api.themoviedb.org/3/search/movie?query='
-            .str_replace(' ', '+',$_GET['query'])
-            .'&api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
+		$url_name = 'search/movie?query='.str_replace(' ', '+',$_GET['query']);
 	}elseif(isset($_GET['discover'])){
 		$link = "./search.php?discover=".$_GET['discover'];
-        $req_type = $_GET['discover']==='trending'
+        $url_name = $_GET['discover']==='trending'
             ?'trending/movie/week?'
-            :'discover/movie?sort_by=primary_release_date.desc&primary_release_date.lte='.date('Y-m-d').'&';
-		$url_name = 'http://api.themoviedb.org/3/' .$req_type .'api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
+            :'discover/movie?sort_by=primary_release_date.desc@primary_release_date.lte='.date('Y-m-d');
     }elseif(isset($_GET['genre'])){
 		$link = "./search.php?genre=".$_GET['genre'];
-		$url_name = 'http://api.themoviedb.org/3/discover/movie?api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr'
-            .'&with_genres='.$_GET['genre'];
+		$url_name = 'discover/movie'
+            .'@with_genres='.$_GET['genre'];
 		if(isset($_GET['sort'])){
 			if($_GET['sort']==='title'){
 				$sort_param = 'original_title.asc';
@@ -36,11 +33,11 @@ if($_GET){
 				$sort_param = 'popularity.desc';
 				
 			}
-			$url_name .= '&sort_by='.$sort_param;
+			$url_name .= '@sort_by='.$sort_param;
         }
     }
     if(isset($stuff['want_adult']) && $stuff['want_adult']===1){
-        $url_name .= '&include_adult=true';
+        $url_name .= '@include_adult=true';
     }
 }
 ?>
@@ -175,7 +172,9 @@ if($_GET){
                 document.querySelector('#more_movies').remove();
             }
             const container = document.querySelector('.movie-container');
-            fetch("<?=$url_name?>&page="+page).then(response => response.json()).then(data =>{
+            let url = './api/tmdb?q=<?=$url_name?>&page='+page;
+            console.log(url)
+            fetch(url).then(response => response.json()).then(data =>{
                 let movies = data['results'];
                 let amount = data['total_results'];
                 if(data['total_results'] >=10000){

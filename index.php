@@ -44,7 +44,6 @@ function printmovie($list){
 	}
 }
 ?>
-
     <main class=" bg-white w-full h-full pt-8">
 	    <div class="w-11/12 mx-auto h-full">
         <h1 class=" uppercase font-bold mt-8 lg:mt-0 text-2xl lg:text-3xl">Bonjour <?=$_SESSION['user']->first_name?></h1>
