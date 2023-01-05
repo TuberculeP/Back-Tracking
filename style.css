@@ -1,7 +1,248 @@
-body{
-    background-color: #212121;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
 }
 
-body a{
-    color: white;
+header {
+  background-color: white;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.24);
+  display: flex;
+  gap: 36px;
+  position: relative;
+  justify-content: left;
+  align-items: center;
+  padding: 0 24px;
+  margin-bottom: 24px;
 }
+header .profile {
+  position: absolute;
+  right: 24px;
+}
+header .logo {
+  display: flex;
+  align-items: center;
+}
+header .logo img {
+  height: 80px;
+  margin: 10px 0;
+}
+
+div.search > div {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+div.search form {
+  position: relative;
+}
+div.search form input {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 24px;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.24);
+}
+div.search form button {
+  padding: 10px;
+  border: none;
+  background-color: #0ea10e;
+  color: white;
+  border-radius: 24px;
+  cursor: pointer;
+}
+div.search form div.search-modal {
+  position: absolute;
+  background-color: white;
+}
+div.search form div.search-modal.hidden {
+  display: none;
+}
+div.search form div.search-modal ul {
+  list-style: none;
+}
+
+a.button {
+  display: block;
+  width: fit-content;
+  padding: 10px 20px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.24);
+  border-radius: 24px;
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+a.button:hover {
+  transform: translateY(2px);
+}
+
+div.sort {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+
+section.result {
+  display: flex;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  border-radius: 0 24px 24px 0;
+}
+section.result img {
+  height: 250px;
+}
+section.result div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+}
+section.result div p {
+  bottom: 0;
+  text-align: justify;
+}
+
+a.result {
+  display: block;
+  width: 550px;
+  margin: 24px auto;
+  text-decoration: none;
+  color: inherit;
+  appearance: none;
+  transition: transform 0.2s;
+}
+a.result:hover {
+  transform: scale(1.01);
+}
+
+h1 {
+  text-align: center;
+}
+
+div.movie {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  border-radius: 0 24px 24px 0;
+}
+div.movie img {
+  height: 500px;
+}
+div.movie section {
+  padding: 24px;
+}
+div.movie section > * {
+  margin-bottom: 24px;
+}
+div.movie section p {
+  max-width: 600px;
+  text-align: justify;
+}
+
+div.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.15);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+div.modal-container .modal {
+  background-color: white;
+  padding: 3em;
+  border-radius: 32px;
+}
+div.modal-container .modal > div {
+  margin: 10px;
+}
+div.modal-container .modal button {
+  display: block;
+  margin: auto;
+}
+
+main.profile h2 {
+  margin: 20px;
+}
+main.profile div.album-container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+main.profile div.album-container a {
+  transition: transform 0.2s;
+  text-decoration: none;
+  color: black;
+}
+main.profile div.album-container a:hover {
+  transform: scale(1.05);
+}
+main.profile div.album-container section {
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.24);
+  overflow: clip;
+  width: 300px;
+}
+main.profile div.album-container section img {
+  width: 100%;
+  aspect-ratio: 2/1;
+  object-fit: cover;
+}
+main.profile div.album-container section div {
+  position: relative;
+  height: 150px;
+  padding: 20px;
+}
+main.profile .description {
+  appearance: none;
+  width: 400px;
+  margin: 10px auto;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+}
+main.profile .description h3 {
+  text-align: center;
+}
+main.profile .description p::before, main.profile .description p::after {
+  content: ' " ';
+}
+main.profile .preferences {
+  width: fit-content;
+  margin: 20px auto;
+  border: 1px solid black;
+  padding: 10px;
+}
+main.profile .preferences label {
+  display: block;
+}
+main.profile .preferences button {
+  display: block;
+}
+
+main.invite p {
+  width: fit-content;
+  margin: 20px auto;
+  background-color: antiquewhite;
+  padding: 5px;
+}
+main.invite button {
+  display: block;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+button#more_movies {
+  padding: 10px;
+  display: block;
+  margin: 20px auto;
+}
+
+.seen_hidden, .adult_hidden {
+  display: none;
+}
+
+/*# sourceMappingURL=style.css.map */

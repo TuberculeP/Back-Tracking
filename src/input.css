@@ -10,3 +10,6 @@ div .desc {
   display: none;
 }
 
+.gradient{
+  background: linear-gradient(to right ,transparent, #000);
+}

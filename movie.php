@@ -47,11 +47,12 @@ if($_POST){
 }
 
 ?>
+
 	<main class=" bg-white w-full h-full pt-8 relative pb-10">
     <div class="w-11/12 mx-auto h-full flex flex-col">
-      <div class="movie flex flex-row">
+      <div class="movie flex lg:flex-row flex-col">
         <img class="h-[80vh] rounded-2xl" src="https://image.tmdb.org/t/p/w500<?=$movie['poster_path']?>" alt="poster_for <?=$movie['id']?>">
-        <section class="flex flex-col ml-8 justify-between h-[50vh] w-full">
+        <section class="flex flex-col lg:ml-8 justify-between lg:h-[50vh] h-full w-full">
             <h2 class=" uppercase font-bold mt-8 lg:mt-0 text-2xl lg:text-3xl"><?=$movie['title']?></h2>
             <?php
             if(clean($movie['title'])!==clean($movie['original_title'])){
@@ -61,7 +62,7 @@ if($_POST){
             }
             ?>
             <p class="font-bold mt-8 lg:mt-0"><i><?=$movie['tagline']?></i></p>
-            <p class="text-black">Genre(s) : <?=$genres?></p>
+            <p class="text-bleu">Genre(s) : <?=$genres?></p>
             <a class="text-gris" href="<?=$movie['homepage']?>"><?=$movie['homepage']?></a>
             <p>Date de sortie : <?=$releaseFormat?></p>
             <p>Budget :
@@ -72,8 +73,8 @@ if($_POST){
             </p>
             <p>Durée : <?=$movie['runtime']?> minutes</p>
             <p><?=$movie['overview']?></p>
-            <div class="mt-2 flex flex-row justify-between w-10/12 items-center">
-              <form class="bg-bleu text-white px-7 py-2 rounded-lg" method="post">
+            <div class="mt-2 flex lg:flex-row flex-col justify-between lg:w-10/12 w-12/12 lg:items-center text-center lg:text-left md:w-12/12">
+              <form class="mt-4 mg:mt-0 bg-bleu text-white px-7 py-2 rounded-lg" method="post">
                   <input type="hidden" name="see_movie" value="<?=htmlspecialchars($_GET['id'])?>">
                   <button type="submit">
                       <?php
@@ -81,7 +82,7 @@ if($_POST){
                       ?> visionnés
                   </button>
               </form>
-              <form class="bg-bleu text-white px-7 py-2 rounded-lg" method="post">
+              <form class="mt-4 mg:mt-0 bg-bleu text-white px-7 py-2 rounded-lg" method="post">
                 <input type="hidden" name="want_movie" value="<?=htmlspecialchars($_GET['id'])?>">
                 <button type="submit">
                 <?php
@@ -89,19 +90,19 @@ if($_POST){
                 ?> la liste de souhaits
               </button>
             </form>
-            <button class="bg-white text-bleu border-2 border-bleu px-7 py-2 rounded-lg" id="album">Ajouter à un album</button>
+            <button class="mt-4 mg:mt-0 bg-white text-bleu border-2 border-bleu px-7 py-2 rounded-lg" id="album">Ajouter à un album</button>
             <!-- <p><?=$movie['id']?></p> -->
             
-            <div class=" hidden flex flex-col modal-container absolute bg-white bottom-10 text-bleu border-2 border-bleu rounded-lg p-1 px-2 justify-between w-6/12">
+            <div class="hidden flex flex-col modal-container absolute bg-white bottom-10 text-bleu border-2 border-bleu rounded-lg p-1 px-2 justify-between lg:w-6/12">
 
                 <ion-icon class="close z-50 plus absolute w-6 h-6 fill-black top-2 right-2 bg-gris rounded-full p-1 bg-opacity-50" name="close-outline"></ion-icon>
 
-                <form class="p-1 px-2 modal " method="post" action="add_movie.php?id=<?=htmlspecialchars($_GET['id'])?>">
+                <form class="p-1 px-2 modal" method="post" action="add_movie.php?id=<?=htmlspecialchars($_GET['id'])?>">
                     <h4 class="mb-4">Ajouter à une liste existante</h4>
                     <?php
                     $db = new Connection();
                     ?>
-                    <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 items-center">
+                    <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 lg:items-center">
                       <?php
                       foreach(Album::all($_SESSION['id']) as $album):
                       ?>
