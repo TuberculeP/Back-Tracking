@@ -1,3 +1,5 @@
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     const input = document.querySelector('input#search');
@@ -15,7 +17,7 @@
                 divSearch.classList.add('hidden');
             }else{
                 divSearch.classList.remove('hidden');
-                axios.get('./api/tmdb?q=search/movie?query='+this.value)
+                axios.get('./api/tmdb?q=search/movie?query='+this.value.replace(/ /g, '+'))
                     .then(response => {
                         p.innerHTML = "Films : " + response.data['total_results'];
                         if(response.data['total_results'] === 10000) {
