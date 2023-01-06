@@ -4,6 +4,7 @@ if($_GET && $_GET['q']){
 	$url = 'https://api.themoviedb.org/3/'
 		.$_GET['q'].'&api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
 	$url = str_replace('@', '&', $url);
+	$url = str_replace(' ', '+', $url);
 	if(!str_contains($_GET['q'], '?')){
 		$url = preg_replace('/&/', '?', $url, 1);
 	}
