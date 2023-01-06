@@ -43,9 +43,10 @@ $stuff = $user->getStuff();
             <hr>
             <div class="flex flex-col">
               <label class="mt-4" for="desc">Description</label>
-              <textarea class="focus:outline-none rounded-md my-2 w-2/3" name="description" id="desc">
-                  <?=isset($stuff['description'])?htmlspecialchars($stuff['description']):''?>
-              </textarea>
+              <textarea
+                      class="focus:outline-none rounded-md my-2 w-2/3"
+                      name="description"
+                      id="desc"><?=isset($stuff['description'])?htmlspecialchars($stuff['description']):''?></textarea>
               <div class=" flex flex-row items-center lg:w-1/2 w-8/12 justify-between mb-4">
                 <label for="want_adult">Voir les films +18 ans</label>
                 <input class="w-4 h-4" type="checkbox" name="want_adult" id="want_adult"
@@ -53,7 +54,9 @@ $stuff = $user->getStuff();
               </div>
             </div>
             <hr>
-            <button class="mt-4 mb-2 bg-white text-bleu border-2 border-bleu px-4 py-1 rounded-lg" type="submit">Envoyer</button>
+            <button class="mt-4 mb-2 bg-white text-bleu border-2 border-bleu px-4 py-1 rounded-lg" type="submit">
+                Envoyer
+            </button>
         </form>
         <?php endif;?>
         

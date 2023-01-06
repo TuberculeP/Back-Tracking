@@ -4,7 +4,7 @@ require_once 'template/header.php';
 
 if($_POST && isset($_POST['login'])){
     if($_POST['email'] === '' || $_POST['email'] === null || $_POST['password'] === '' || $_POST['password'] === null){
-        var_dump($_POST);
+		header('location:./login.php?error=empty');
     }else{
 		$db = new Connection();
 		$result = $db->getFromEmail($_POST['email']);
@@ -45,7 +45,11 @@ if(isset($_SESSION["user"])){
                 ?> <p class="text-white"> <?php
                   echo 'Erreur : Mot de passe erroné';
                   ?> </p> <?php
-              }
+              }elseif($_GET['error'] === 'empty'){
+				  ?> <p class="text-white"> <?php
+					  echo 'Erreur : Veuillez remplir tous les champs';
+					  ?> </p> <?php
+			  }
             
         }?>
     </form>

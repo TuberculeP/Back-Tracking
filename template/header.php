@@ -30,7 +30,6 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?=$page_title?></title>
-    <!-- <link rel="stylesheet" href="/style.css"> -->
     <link href="../src/input.css" rel="stylesheet">
     <link href="../build/css/style.css" rel="stylesheet">
     <link rel="icon" href="/assets/img/IIMovies_Icon.png" type="image/png">
