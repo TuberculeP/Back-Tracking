@@ -199,8 +199,7 @@ if($_GET){
                     let div = document.createElement('div');
                     div.innerHTML = `<a href="./movie.php?id=`+movie['id']+` " class="result">
                 <section class="z-10 relative result lg:h-[450px] h-[380px] rounded-xl shadow-lg mb-6">
-                  <ion-icon class="z-50 plus absolute w-6 h-6 fill-black top-2 right-2 bg-gris rounded-full p-1 bg-opacity-50" name="ellipsis-horizontal"></ion-icon>
-                    <img class="rounded-t-lg h-[40vh] border-b border-gris w-full" src="./assets/img/blank_movie.jpeg"
+                  <img class="rounded-t-lg h-[40vh] border-b border-gris w-full" src="./assets/img/blank_movie.jpeg"
                          alt="no poster for this movie">
                         <div>
                           <h2 class="w-11/12 mx-auto mt-4 font-bold uppercase text-black text-base"></h2>

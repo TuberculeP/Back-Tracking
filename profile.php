@@ -4,9 +4,6 @@ require_once 'template/header.php';
 if(!isset($_SESSION['user'])) {
 	header('location:./login.php');
 }
-if(!isset($_GET['id'])){
-    header('location:./profile.php?id='.$_SESSION['id']);
-}
 
 if($_POST && isset($_POST['preferences'])){
     //il faut update le profil
