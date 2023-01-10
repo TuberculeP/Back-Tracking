@@ -70,7 +70,6 @@ function printmovie($list){
 
         <h2 class=" uppercase font-bold lg:mt-0 text-2xl lg:text-xl">Vos films déjà vu :</h2>
         <div class="items-center flex flex-row w-full mx:auto justify-between z-10 relative">
-          <div class="absolute w-1/12 right-0 h-[84%] opacity-50 z-50 gradient -mt-[49px]"></div>
           <div class="seen flex snap-x snap-mandatory h-max w-full mx:auto overflow-scroll overflow-y-hidden justify-between pb-12">
 			      <div class="mr-8 snap-start shrink-0 flex flex-row text-center my-6">
               <?php

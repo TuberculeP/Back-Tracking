@@ -16,7 +16,7 @@ $movie = json_decode($result_url, true);
 //on va s'amuser a convertir un peu tout comme on peut
 $genres = "";
 foreach ($movie['genres'] as $genre){
-    $genres .= '<a href="./search.php?genre='.$genre['id'].'">'.$genre['name']."</a> ";
+    $genres .= '<a class="underline underline-offset-4" href="./search.php?genre='.$genre['id'].'">'.$genre['name']."</a> ";
 }
 
 $relArr = explode("-", $movie['release_date']);

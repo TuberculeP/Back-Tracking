@@ -41,7 +41,7 @@ $stuff = $user->getStuff();
             <div class="flex flex-col">
               <label class="mt-4" for="desc">Description</label>
               <textarea
-                      class="focus:outline-none rounded-md my-2 w-2/3"
+                      class="text-black focus:outline-none rounded-md my-2 w-2/3"
                       name="description"
                       id="desc"><?=isset($stuff['description'])?htmlspecialchars($stuff['description']):''?></textarea>
               <div class=" flex flex-row items-center lg:w-1/2 w-8/12 justify-between mb-4">
