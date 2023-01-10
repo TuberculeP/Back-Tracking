@@ -96,7 +96,6 @@ if($_POST){
             
             <div class="hidden flex flex-col modal-container absolute bg-white bottom-10 text-bleu border-2 border-bleu rounded-lg p-1 px-2 justify-between lg:w-6/12">
 
-                <ion-icon class="close z-50 plus absolute w-6 h-6 fill-black top-2 right-2 bg-gris rounded-full p-1 bg-opacity-50" name="close-outline"></ion-icon>
 
                 <form class="p-1 px-2 modal" method="post" action="add_movie.php?id=<?=htmlspecialchars($_GET['id'])?>">
                     <h4 class="mb-4">Ajouter à une liste existante</h4>

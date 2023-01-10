@@ -59,11 +59,11 @@ if($_GET){
             <hr>
         
         <?php if(isset($_GET['genre']) || isset($_GET['query'])):?>
-        <div class="sort">
+        <div class="sort ">
             <h3>Trier par :</h3>
-            <a href='<?=htmlspecialchars($link)?>&sort=title'>Nom</a>
-            <a href='<?=htmlspecialchars($link)?>&sort=vote_average'>Note</a>
-            <a href='<?=htmlspecialchars($link)?>&sort=popularity'>Popularité</a>
+            <a class="underline underline-offset-4"" href='<?=htmlspecialchars($link)?>&sort=title'>Nom</a>
+            <a class="underline underline-offset-4"" href='<?=htmlspecialchars($link)?>&sort=vote_average'>Note</a>
+            <a class="underline underline-offset-4"" href='<?=htmlspecialchars($link)?>&sort=popularity'>Popularité</a>
             <span>
                 <label for="viewed">Masquer les films visionnés</label>
                 <input type="checkbox" id="viewed">
