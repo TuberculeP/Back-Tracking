@@ -95,7 +95,7 @@ if($_SERVER['REQUEST_URI'] !== '/favicon.ico'){
                     <div class="menu hidden absolute top-10 right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                         <div class="py-1" role="none">
 
-                            <a class="text-gris block px-4 py-2 text-sm" href="/profile.php" role="menuitem" tabindex="-1" id="menu-item-1">Mon profil</a>
+                            <a class="text-gris block px-4 py-2 text-sm" href="/profile.php?id=<?=$_SESSION['id']?>" role="menuitem" tabindex="-1" id="menu-item-1">Mon profil</a>
                             <a class=" text-rouge block px-4 py-2 text-sm" href="/disconnect.php" role="menuitem" tabindex="-1" id="menu-item-1">Se déconnecter</a>
                         </div>
                     </div>
