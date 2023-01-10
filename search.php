@@ -116,7 +116,7 @@ if($_GET){
   </div>
 </main>
 
-<?php if($_GET['query']==="flip"):?>
+<?php if(isset($_GET['query']) && $_GET['query']==="flip"):?>
     <script>
         document.body.style.transition = "all 1s";
         setTimeout(function() {
@@ -125,7 +125,7 @@ if($_GET){
     </script>
 <?php endif;?>
 
-<?php if($_GET['query']==="mirror"):?>
+<?php if(isset($_GET['query']) && $_GET['query']==="mirror"):?>
     <script>
         document.body.style.transition = "all 1s";
         setTimeout(function() {
@@ -133,7 +133,7 @@ if($_GET){
         }, 1000)
     </script>
 <?php endif;?>
-<?php if($_GET['query']==="dance"):?>
+<?php if(isset($_GET['query']) && $_GET['query']==="dance"):?>
     <style>
         @keyframes dance {
             0%{
@@ -215,7 +215,8 @@ if($_GET){
                 document.querySelector('#more_movies').remove();
             }
             const container = document.querySelector('.movie-container');
-            let url = './api/tmdb?q=<?=$url_name?>&page='+page;
+            let url = './api/tmdb?q=<?=$url_name?>@page='+page;
+            console.log(url)
             fetch(url).then(response => response.json()).then(data =>{
                 let movies = data['results'];
                 let amount = data['total_results'];
