@@ -14,13 +14,13 @@ if($_POST && isset($_POST['preferences'])){
     ]);
 	header('location:./profile.php?id='.$_SESSION['id']);
 }
-require_once 'template/header.php';
 
 require_once 'classes/album.php';
 $albums = Album::all($_GET['id']);
 
 $user = User::find($_GET['id']);
 $stuff = $user->getStuff();
+require_once 'template/header.php';
 ?>
 	
 	<main class=" bg-white w-full h-full pt-8 profiles">

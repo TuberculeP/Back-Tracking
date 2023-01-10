@@ -4,7 +4,7 @@ require_once './template/imports.php';
 if(!isset($_SESSION['user'])){
 	header('location:./login.php');
 }
-require_once 'template/header.php';
+
 $link = "";
 $url_name = "";
 $stuff = $_SESSION['user']->getStuff();
@@ -41,6 +41,7 @@ if($_GET){
         $url_name .= '@include_adult=true';
     }
 }
+require_once 'template/header.php';
 ?>
 <main class=" bg-white w-full h-full pt-8">
   <div class="w-11/12 mx-auto h-full">

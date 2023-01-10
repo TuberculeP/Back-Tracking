@@ -4,7 +4,7 @@ require_once './template/imports.php';
 if(!isset($_SESSION['user'])){
 	header('location:./login.php');
 }
-require_once './template/header.php';
+
 $url_name = 'https://api.themoviedb.org/3/movie/'
     . $_GET['id']
     . '?api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
@@ -46,7 +46,7 @@ if($_POST){
 		header('location:./movie.php?id='.$_GET['id']);
     }
 }
-
+require_once './template/header.php';
 ?>
 
 	<main class=" bg-white w-full h-full pt-8 relative pb-10">

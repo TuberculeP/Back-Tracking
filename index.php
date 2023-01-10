@@ -4,7 +4,7 @@ require_once 'template/imports.php';
 if(!isset($_SESSION['user'])){
 	header('location:./login.php');
 }
-require_once 'template/header.php';
+
 function printmovie($list){
 	foreach ($list as $movie_id){
 		$url_name = 'https://api.themoviedb.org/3/movie/' . $movie_id
@@ -41,6 +41,7 @@ function printmovie($list){
 		<?php
 	}
 }
+require_once 'template/header.php';
 ?>
 
     <main class=" bg-white w-full h-full pt-8">
