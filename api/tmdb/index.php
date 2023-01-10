@@ -1,5 +1,5 @@
 <?php
-
+header('Content-Type: application/json; charset=utf-8');
 if($_GET && $_GET['q']){
 	$url = 'https://api.themoviedb.org/3/'
 		.$_GET['q'].'&api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';
@@ -12,7 +12,7 @@ if($_GET && $_GET['q']){
 	curl_setopt($ch_session, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch_session, CURLOPT_URL, $url);
 	$result_url = curl_exec($ch_session);
-	header('Content-Type: application/json; charset=utf-8');
+	
 	echo $result_url;
 }else{
 	echo json_encode(['error' => 'No search provided']);

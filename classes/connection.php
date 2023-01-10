@@ -8,11 +8,11 @@ class Connection
 	public function __construct()
 	
 	{
-		$this->PDO = new PDO(
-			'mysql:dbname=tartiflette;host=127.0.0.1',
+		$this->PDO = new PDO('mysql:host=localhost;dbname=tartiflette;charset=utf8',
 			'root',
-			'root'
-			);
+			'root',
+			array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+		
 	}
 	
 	public function getAllUsers(): bool|array

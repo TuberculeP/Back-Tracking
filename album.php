@@ -4,7 +4,6 @@ require_once 'template/imports.php';
 if(!isset($_SESSION['user'])) {
 	header('location:./login.php');
 }
-require_once 'template/header.php';
 if($_GET && isset($_GET['id'])){
 	require_once 'classes/album.php';
 	$album = Album::find($_GET['id']);
@@ -29,7 +28,8 @@ if($_GET && isset($_GET['id'])){
 		if($album->is_public || $_SESSION['user']->isContributor($stuff)){
             $album->addView();
             $album->view++;
-?>
+			require_once 'template/header.php';
+            ?>
 	
 	<main class=" bg-white w-full h-full py-8 profile">
 	   <div class="w-11/12 mx-auto h-full">
@@ -148,7 +148,8 @@ if($_GET && isset($_GET['id'])){
 <?php
         }
 	}else{
-        echo '<h1>Pas d\'album trouvé</h1>';
+		require_once 'template/header.php';
+		echo '<h1>Pas d\'album trouvé</h1>';
 	}
 }else{
 	header('location:./');
