@@ -10,6 +10,7 @@ module.exports = {
       colors:{
         bleu:'#011627',
         gris:'#726F6F',
+        rouge:'#850606',
       },
       
     },

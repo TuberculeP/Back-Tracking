@@ -5,7 +5,6 @@ if(!isset($_SESSION['user'])) {
 	header('location:./login.php');
 }
 
-
 if($_GET && isset($_GET['id'])){
 	require_once 'classes/album.php';
 	$album = Album::find($_GET['id']);
@@ -71,7 +70,7 @@ if($_GET && isset($_GET['id'])){
             <h2>Inviter à contribuer :</h2>
             <form class="ml-4" action="./invite/create.php" method="post">
                   <input type="hidden" name="album" value="<?=htmlspecialchars($_GET['id'])?>">
-                  <button class=" hover:underline underline-offset-4" type="submit">Générer un lien</button>
+                  <button class="underline underline-offset-4" type="submit">Générer un lien</button>
             </form>
          </div>
         
@@ -91,32 +90,41 @@ if($_GET && isset($_GET['id'])){
 				$result = json_decode($result_url, true);
             ?>
             <a class="result w-[35vh] shadow-lg rounded-lg bg-white mr-8" href="./movie.php?id=<?=$result['id']?>" class="result">
-                <section class="result h-9/12 relative w-full" class="result">
-                     <ion-icon class="z-50 plus absolute w-6 h-6 fill-black top-2 right-2 bg-gris rounded-full p-1 bg-opacity-50" name="ellipsis-horizontal"></ion-icon>
+                <section class="result h-[70vh] relative w-full" class="result">
                     <img class="rounded-t-lg h-[50vh] border-b border-gris w-full" src="https://image.tmdb.org/t/p/w500<?=$result['poster_path']?>"
                          alt="poster_for <?=$result['id']?>">
-                    <div>
-                        <h2 class="my-4 font-bold uppercase text-black text-base">
-                           <?php
-                           if($result['original_language'] === 'fr'){
-                              echo $result['original_title'];
-                           }else{
-                              echo $result['title'];
-                           }
-                           echo ' ('.explode('-',$result['release_date'])[0].')'
-                           ?>
-                        </h2>
-                        <div class="hidden text-left">
-                           <p>Indice de Popularité : <?=$result['popularity']?></p>
-                           <p>Note : <?=$result['vote_average']?>/10</p>
-                           <p><?=$result['overview']?></p>
-                        </div>
+                    <div class="flex flex-col relative justify-between h-max">
+                      <h2 class="my-4 h-[5vh] font-bold uppercase text-black text-base">
+                          <?php
+                          if($result['original_language'] === 'fr'){
+                            echo $result['original_title'];
+                          }else{
+                            echo $result['title'];
+                          }
+                          echo ' ('.explode('-',$result['release_date'])[0].')'
+                          ?>
+                      </h2>
+                      <div class="flex flex-row w-11/12 mx-auto opacity-70 justify-between my-4">
+                        <div class="h-2 w-2 bg-gris rounded-full"></div>
+                        <div class="h-2 w-2 bg-gris rounded-full"></div>
+                        <div class="h-2 w-2 bg-gris rounded-full"></div>
+                        <div class="h-2 w-2 bg-gris rounded-full"></div>
+                        <div class="h-2 w-2 bg-gris rounded-full"></div>
+                        <div class="h-2 w-2 bg-gris rounded-full"></div>
+                        <div class="h-2 w-2 bg-gris rounded-full"></div>
+                        <div class="h-2 w-2 bg-gris rounded-full"></div>
+                        <div class="h-2 w-2 bg-gris rounded-full"></div>
+                        <div class="h-2 w-2 bg-gris rounded-full"></div>
+                        <div class="h-2 w-2 bg-gris rounded-full"></div>
+                      </div>
+                      <div class="flex justify-center h-[5vh] items-center">
                         <?php if($_SESSION['user']->isContributor($stuff)):?>
-                            <form action="./add_movie.php?id=<?=$result['id']?>" method="post">
-                                <input type="hidden" name="<?=htmlspecialchars($_GET['id'])?>" value="delete">
-                                <button type="submit">Supprimer</button>
-                            </form>
+                          <form action="./add_movie.php?id=<?=$result['id']?>" method="post">
+                            <input type="hidden" name="<?=htmlspecialchars($_GET['id'])?>" value="delete">
+                            <button class="underline underline-offset-4 uppercase hover:opacity-50" type="submit">Supprimer</button>
+                          </form>
                         <?php endif?>
+                      </div>
                     </div>
                 </section>
             </a>
