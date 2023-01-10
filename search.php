@@ -1,9 +1,10 @@
 <?php
 $page_title = 'Rechercher';
-require_once './template/header.php';
+require_once './template/imports.php';
 if(!isset($_SESSION['user'])){
 	header('location:./login.php');
 }
+require_once 'template/header.php';
 $link = "";
 $url_name = "";
 $stuff = $_SESSION['user']->getStuff();

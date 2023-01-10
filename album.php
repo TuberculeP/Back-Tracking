@@ -1,10 +1,10 @@
 <?php
 $page_title = 'IIMovies';
-require_once 'template/header.php';
+require_once 'template/imports.php';
 if(!isset($_SESSION['user'])) {
 	header('location:./login.php');
 }
-
+require_once 'template/header.php';
 if($_GET && isset($_GET['id'])){
 	require_once 'classes/album.php';
 	$album = Album::find($_GET['id']);
@@ -29,7 +29,6 @@ if($_GET && isset($_GET['id'])){
 		if($album->is_public || $_SESSION['user']->isContributor($stuff)){
             $album->addView();
             $album->view++;
-    
 ?>
 	
 	<main class=" bg-white w-full h-full py-8 profile">

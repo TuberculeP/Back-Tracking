@@ -1,9 +1,10 @@
 <?php
 $page_title = 'IIMovies';
-require_once './template/header.php';
+require_once './template/imports.php';
 if(!isset($_SESSION['user'])){
 	header('location:./login.php');
 }
+require_once './template/header.php';
 $url_name = 'https://api.themoviedb.org/3/movie/'
     . $_GET['id']
     . '?api_key=d3151e4e15cfce47f5840fd3c57988df&language=fr';

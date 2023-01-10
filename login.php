@@ -1,6 +1,6 @@
 <?php
 $page_title = "Se connecter";
-require_once 'template/header.php';
+require_once 'template/imports.php';
 
 if($_POST && isset($_POST['login'])){
     if($_POST['email'] === '' || $_POST['email'] === null || $_POST['password'] === '' || $_POST['password'] === null){
@@ -24,6 +24,7 @@ if($_POST && isset($_POST['login'])){
 if(isset($_SESSION["user"])){
 	header('location:./');
 }
+require_once 'template/header.php';
 ?>
 <main class="bg-white h-screen pt-10 w-full">
     <form method="post" class="bg-bleu flex flex-col w-1/3 mx-auto rounded-2xl text-white p-4 justify-between h-80">

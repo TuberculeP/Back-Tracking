@@ -1,10 +1,10 @@
 <?php
 $page_title = 'IIMovies';
-require_once 'template/header.php';
+require_once 'template/imports.php';
 if(!isset($_SESSION['user'])){
 	header('location:./login.php');
 }
-
+require_once 'template/header.php';
 function printmovie($list){
 	foreach ($list as $movie_id){
 		$url_name = 'https://api.themoviedb.org/3/movie/' . $movie_id

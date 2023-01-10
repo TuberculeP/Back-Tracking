@@ -1,6 +1,6 @@
 <?php
 $page_title = "S'inscrire";
-require_once 'template/header.php';
+require_once 'template/imports.php';
 
 if($_POST && isset($_POST['register'])){
 
@@ -37,6 +37,8 @@ if($_POST && isset($_POST['register'])){
     }
 
 }
+require_once 'template/header.php';
+
 ?>
 
 <main class=" bg-white w-full lg:h-[88vh] h-full pb-20 pt-8 profiles">

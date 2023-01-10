@@ -1,6 +1,7 @@
 <?php
 $page_title = 'IIMovies';
-require_once 'template/header.php';
+require_once 'template/imports.php';
+
 if(!isset($_SESSION['user'])) {
 	header('location:./login.php');
 }
@@ -13,6 +14,7 @@ if($_POST && isset($_POST['preferences'])){
     ]);
 	header('location:./profile.php?id='.$_SESSION['id']);
 }
+require_once 'template/header.php';
 
 require_once 'classes/album.php';
 $albums = Album::all($_GET['id']);
