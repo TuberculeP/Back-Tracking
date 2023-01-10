@@ -1,6 +1,7 @@
 <?php
 $page_title = "Invitation";
 $back = true;
+require_once '../template/imports.php';
 require_once '../template/header.php';
 $link = false;
 if ($_GET && isset($_GET['key'])) {

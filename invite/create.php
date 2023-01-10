@@ -1,8 +1,9 @@
 <?php
 $back = true;
 $page_title = "Invitation";
-require_once '../template/header.php';
+require_once '../template/imports.php';
 $key = hash('sha256', date("Y-m-d H:i:s"));
+require_once '../template/header.php';
 if (($_POST && isset($_POST['album'])) || isset($_GET['test'])) {
     if(sizeof($_SESSION['user']->link_getAll($_POST['album']))===0){
 		if(isset($_POST['album'])){
